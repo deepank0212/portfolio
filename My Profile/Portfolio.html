@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepan K. — UX/UI Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --ink: #0A0A0F;
+            --ink2: #3A3A4A;
+            --ink3: #7A7A8A;
+            --surface: #FAFAF8;
+            --card: #FFFFFF;
+            --accent: #5B4AE8;
+            --accent2: #E8574A;
+            --accentLight: #EEEbFF;
+            --border: rgba(0, 0, 0, 0.07);
+            --borderHover: rgba(91, 74, 232, 0.25);
+            --radius: 16px;
+            --radiusSm: 10px;
+            --maxw: 1100px;
+            --gutter: 40px;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--surface);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        .display {
+            font-family: 'Syne', sans-serif
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 248, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 var(--gutter);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .nav-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.5px
+        }
+
+        .nav-logo span {
+            color: var(--accent)
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ink3);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: color .2s
+        }
+
+        .nav-links a:hover {
+            color: var(--ink)
+        }
+
+        /* CTA lives inside nav-links only for the mobile menu — hide on desktop */
+        .nav-links .nav-cta {
+            display: none
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px
+        }
+
+        .nav-cta {
+            background: var(--ink);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: transform .2s, background .2s;
+            white-space: nowrap
+        }
+
+        .nav-cta:hover {
+            background: var(--accent)
+        }
+
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--ink);
+            font-size: 20px;
+            flex-shrink: 0
+        }
+
+        .nav-toggle:hover {
+            border-color: var(--borderHover);
+            color: var(--accent)
+        }
+
+        /* ---------- LAYOUT SHELL ---------- */
+        .shell {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 var(--gutter)
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            padding: 80px 0 60px;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accentLight);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 24px
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(0.8)
+            }
+        }
+
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(40px, 7vw, 56px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: var(--ink);
+            margin-bottom: 20px
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--accent)
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: var(--ink2);
+            line-height: 1.7;
+            max-width: 440px;
+            margin-bottom: 36px
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: #fff;
+            padding: 13px 28px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all .2s;
+            border: none;
+            cursor: pointer
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px)
+        }
+
+        .btn-ghost {
+            color: var(--ink2);
+            padding: 13px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all .2s;
+            background: transparent;
+            cursor: pointer
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--borderHover);
+            color: var(--accent)
+        }
+
+        .hero-social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 32px
+        }
+
+        .social-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--ink3);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .social-chip:hover {
+            border-color: var(--borderHover);
+            color: var(--accent)
+        }
+
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .hero-img-wrap {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, #E8E4FF 0%, #D0CAFF 100%)
+        }
+
+        .hero-img-badge {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #fff;
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px
+        }
+
+        .badge-label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+            text-transform: uppercase
+        }
+
+        .badge-val {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radiusSm);
+            padding: 14px 16px;
+            transition: border-color .2s
+        }
+
+        .stat-card:hover {
+            border-color: var(--borderHover)
+        }
+
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--ink)
+        }
+
+        .stat-desc {
+            font-size: 11px;
+            color: var(--ink3);
+            margin-top: 2px
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            max-width: var(--maxw);
+            margin: 0 auto
+        }
+
+        /* ---------- SECTIONS ---------- */
+        .section {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 72px var(--gutter)
+        }
+
+        .section-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(28px, 5vw, 38px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 8px
+        }
+
+        .section-sub {
+            font-size: 15px;
+            color: var(--ink2);
+            max-width: 480px;
+            line-height: 1.7
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        /* ---------- WORK ---------- */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px
+        }
+
+        .work-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .25s;
+            text-decoration: none;
+            display: block
+        }
+
+        .work-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--borderHover);
+            box-shadow: 0 20px 48px rgba(91, 74, 232, 0.1)
+        }
+
+        .work-card.featured {
+            grid-column: 1/-1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center
+        }
+
+        .work-thumb {
+            background: linear-gradient(135deg, #EEEbFF, #D8D2FF);
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden
+        }
+
+        .work-card.featured .work-thumb {
+            aspect-ratio: auto;
+            height: 100%;
+            min-height: 280px
+        }
+
+        .work-thumb-inner {
+            width: 85%;
+            height: 75%;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .thumb-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--accent);
+            opacity: 0.2
+        }
+
+        .work-info {
+            padding: 24px
+        }
+
+        .work-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accentLight);
+            padding: 4px 10px;
+            border-radius: 100px;
+            margin-bottom: 12px
+        }
+
+        .work-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px
+        }
+
+        .work-card.featured .work-title {
+            font-size: clamp(20px, 4vw, 26px)
+        }
+
+        .work-desc {
+            font-size: 13px;
+            color: var(--ink2);
+            line-height: 1.65;
+            margin-bottom: 16px
+        }
+
+        .work-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px
+        }
+
+        .work-metric {
+            display: flex;
+            flex-direction: column;
+            gap: 2px
+        }
+
+        .metric-val {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink)
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: var(--ink3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px
+        }
+
+        .work-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-top: 16px
+        }
+
+        /* ---------- PROCESS ---------- */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px
+        }
+
+        .process-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: border-color .2s
+        }
+
+        .process-card:hover {
+            border-color: var(--borderHover)
+        }
+
+        .process-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accentLight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 16px
+        }
+
+        .process-num {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 6px
+        }
+
+        .process-name {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--ink);
+            margin-bottom: 6px
+        }
+
+        .process-desc {
+            font-size: 12px;
+            color: var(--ink3);
+            line-height: 1.6
+        }
+
+        /* ---------- SKILLS ---------- */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start
+        }
+
+        .skill-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .skill-group-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ink3);
+            margin-bottom: 4px
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .skill-name {
+            font-size: 13px;
+            color: var(--ink2);
+            width: 100px;
+            flex-shrink: 0
+        }
+
+        .skill-bar-wrap {
+            flex: 1;
+            height: 4px;
+            background: #EBEBEB;
+            border-radius: 2px;
+            overflow: hidden
+        }
+
+        .skill-bar {
+            height: 100%;
+            border-radius: 2px;
+            background: var(--accent);
+            transition: width 1s ease
+        }
+
+        .skill-pct {
+            font-size: 11px;
+            color: var(--ink3);
+            width: 30px;
+            text-align: right
+        }
+
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px
+        }
+
+        .tool-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--ink2);
+            font-weight: 500
+        }
+
+        .tool-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent)
+        }
+
+        /* ---------- CTA ---------- */
+        .cta-block {
+            background: var(--ink);
+            border-radius: 28px;
+            padding: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            margin-top: 80px;
+            flex-wrap: wrap
+        }
+
+        .cta-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(28px, 5vw, 36px);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            max-width: 360px;
+            line-height: 1.15
+        }
+
+        .cta-title span {
+            color: #B5ACFF
+        }
+
+        .cta-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start
+        }
+
+        .cta-email {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5)
+        }
+
+        .cta-email a {
+            color: #B5ACFF;
+            text-decoration: none
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--ink);
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .2s;
+            display: inline-block
+        }
+
+        .btn-white:hover {
+            background: #B5ACFF;
+            transform: translateY(-2px)
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            padding: 32px var(--gutter);
+            max-width: var(--maxw);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border)
+        }
+
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 16px
+        }
+
+        .footer-logo span {
+            color: var(--accent)
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: var(--ink3)
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .footer-links a {
+            font-size: 12px;
+            color: var(--ink3);
+            text-decoration: none;
+            transition: color .2s
+        }
+
+        .footer-links a:hover {
+            color: var(--accent)
+        }
+
+        /* ============ RESPONSIVE ============ */
+
+        /* Tablet */
+        @media (max-width: 960px) {
+            :root {
+                --gutter: 28px
+            }
+
+            .hero {
+                grid-template-columns: 1fr 340px;
+                gap: 40px;
+                padding: 56px 0 48px
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .two-col {
+                gap: 40px
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 760px) {
+            :root {
+                --gutter: 20px
+            }
+
+            /* Nav: collapse links into toggle menu */
+            .nav-links {
+                display: none
+            }
+
+            .nav-cta {
+                display: none
+            }
+
+            .nav-toggle {
+                display: flex
+            }
+
+            nav.open .nav-links {
+                display: flex;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                background: rgba(250, 250, 248, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+                padding: 8px var(--gutter) 20px;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08)
+            }
+
+            nav.open .nav-links li {
+                border-bottom: 1px solid var(--border)
+            }
+
+            nav.open .nav-links a {
+                display: block;
+                padding: 16px 0;
+                font-size: 16px;
+                color: var(--ink)
+            }
+
+            nav.open .nav-links .nav-cta {
+                display: inline-block;
+                margin-top: 16px;
+                text-align: center;
+                padding: 14px;
+                font-size: 14px
+            }
+
+            /* Hero: stack, image first then text */
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 36px;
+                padding: 40px 0
+            }
+
+            .hero-right {
+                order: -1;
+                max-width: 360px
+            }
+
+            .hero-img-wrap {
+                aspect-ratio: 16/12
+            }
+
+            .hero-title {
+                letter-spacing: -1px
+            }
+
+            .hero-sub {
+                max-width: 100%
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-ghost {
+                flex: 1;
+                text-align: center;
+                min-width: 140px
+            }
+
+            /* Sections */
+            .section {
+                padding: 48px var(--gutter)
+            }
+
+            .section-head .btn-ghost {
+                display: none
+            }
+
+            /* Work cards: single column, thumb on top */
+            .work-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 28px
+            }
+
+            .work-card.featured {
+                grid-template-columns: 1fr
+            }
+
+            .work-card.featured .work-thumb {
+                min-height: 200px;
+                order: -1
+            }
+
+            /* Process */
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 28px
+            }
+
+            /* Skills / two-col */
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 36px
+            }
+
+            /* CTA */
+            .cta-block {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 36px 28px;
+                margin-top: 56px;
+                gap: 28px
+            }
+
+            .cta-right {
+                width: 100%
+            }
+
+            .btn-white {
+                width: 100%;
+                text-align: center
+            }
+
+            /* Footer */
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stat-row {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-ghost {
+                flex: 1 1 100%
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="siteNav">
+        <div class="nav-logo">DEEPAN K<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="Deepan_K_UIUX_Resume.pdf">Resume</a></li>
+            <li><a href="#contact" class="nav-cta">Let's talk →</a></li>
+        </ul>
+        <div class="nav-right">
+            <a href="#contact" class="nav-cta">Let's talk →</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+                <i class="ti ti-menu-2" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="shell">
+        <div class="hero">
+            <div class="hero-left">
+                <div class="hero-eyebrow">
+                    <span class="pulse"></span>
+                    Available for projects — 2026
+                </div>
+                <h1 class="hero-title display">
+                    Designing<br>
+                    experiences<br>
+                    <em>people</em> feel.
+                </h1>
+                <p class="hero-sub">I'm Deepan K., a UX/UI Designer who turns ambiguous product problems into interfaces
+                    that are both delightful to use and measurably effective. Based in India, working globally.</p>
+                <div class="hero-actions">
+                    <a href="#work" class="btn-primary">View my work</a>
+                    <a href="Deepan_K_UIUX_Resume.pdf" class="btn-ghost">Download résumé</a>
+                </div>
+                <div class="hero-social">
+                    <a href="#" class="social-chip"><i class="ti ti-brand-linkedin" style="font-size:14px"
+                            aria-hidden="true"></i> LinkedIn</a>
+                    <a href="#" class="social-chip"><i class="ti ti-brand-dribbble" style="font-size:14px"
+                            aria-hidden="true"></i> Dribbble</a>
+                    <a href="#" class="social-chip"><i class="ti ti-brand-behance" style="font-size:14px"
+                            aria-hidden="true"></i> Behance</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-img-wrap">
+                    <div
+                        style="width:100%;height:100%;background:linear-gradient(145deg,#EEEbFF 0%,#CABFFF 60%,#A99AFF 100%);display:flex;align-items:center;justify-content:center">
+                        <div
+                            style="width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#fff;text-align:center">
+                            DEEPAN K</div>
+                    </div>
+                    <div class="hero-img-badge">
+                        <span class="badge-label">Currently</span>
+                        <span class="badge-val">Open to hire</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-num display">3+</div>
+                        <div class="stat-desc">Products shipped &amp; in use</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num display">2yr</div>
+                        <div class="stat-desc">Design systems experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num display">LMS</div>
+                        <div class="stat-desc">Industry-focused EdTech</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num display">E-com</div>
+                        <div class="stat-desc">Marketing &amp; conversion UX</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="work">
+        <div class="section-eyebrow">Selected work</div>
+        <div class="section-head">
+            <div>
+                <h2 class="section-title display">Projects that<br>moved the needle.</h2>
+            </div>
+            <a href="#" class="btn-ghost" style="white-space:nowrap">All case studies →</a>
+        </div>
+
+        <div class="work-grid">
+            <a href="Portfolio/LMS Case Study.html" class="work-card featured">
+                <div class="work-thumb">
+                    <div class="work-thumb-inner">
+                        <div class="thumb-bar" style="width:70%;height:8px;background:#5B4AE8;border-radius:4px;opacity:0.7"></div>
+                        <div class="thumb-bar" style="width:90%;height:5px;background:#5B4AE8;border-radius:4px;opacity:0.3"></div>
+                        <div class="thumb-bar" style="width:55%;height:5px;background:#5B4AE8;border-radius:4px;opacity:0.2"></div>
+                        <div style="margin-top:12px;width:75%;height:60px;border:1.5px solid rgba(91,74,232,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center">
+                            <div style="width:80%;height:8px;background:linear-gradient(90deg,#5B4AE8,#A99AFF);border-radius:4px;opacity:0.5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-tag"><i class="ti ti-building" style="font-size:11px" aria-hidden="true"></i> SaaS · EdTech</div>
+                    <div class="work-title display">Leather Hub LMS</div>
+                    <p class="work-desc">Redesigned the entire learner and admin experience for an industry-specific LMS serving the leather manufacturing sector. Focused on reducing onboarding drop-off and improving course completion.</p>
+                    <div class="work-meta">
+                        <div class="work-metric"><span class="metric-val display">40%</span><span class="metric-label">Drop-off reduced</span></div>
+                        <div class="work-metric"><span class="metric-val display">2x</span><span class="metric-label">Course completions</span></div>
+                    </div>
+                    <div class="work-arrow">View case study <i class="ti ti-arrow-right" aria-hidden="true"></i></div>
+                </div>
+            </a>
+        </div>
+
+        <div class="work-grid">
+            <a href="Roster Management (1)/Roster Management - Case Study.html" class="work-card featured">
+                <div class="work-info">
+                    <div class="work-tag"><i class="ti ti-building" style="font-size:11px" aria-hidden="true"></i> HR · Internal tools</div>
+                    <div class="work-title display">Roster Management System</div>
+                    <p class="work-desc">Designed an org-wide employee scheduling and shift management tool for a mid-size workforce. Reduced scheduling conflicts and manual back-and-forth.</p>
+                    <div class="work-meta">
+                        <div class="work-metric"><span class="metric-val display">60%</span><span class="metric-label">Admin time saved</span></div>
+                    </div>
+                    <div class="work-arrow">View case study <i class="ti ti-arrow-right" aria-hidden="true"></i></div>
+                </div>
+                <div class="work-thumb">
+                    <div class="work-thumb-inner">
+                        <div class="thumb-bar" style="width:70%;height:8px;background:#5B4AE8;border-radius:4px;opacity:0.7"></div>
+                        <div class="thumb-bar" style="width:90%;height:5px;background:#5B4AE8;border-radius:4px;opacity:0.3"></div>
+                        <div class="thumb-bar" style="width:55%;height:5px;background:#5B4AE8;border-radius:4px;opacity:0.2"></div>
+                        <div style="margin-top:12px;width:75%;height:60px;border:1.5px solid rgba(91,74,232,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center">
+                            <div style="width:80%;height:8px;background:linear-gradient(90deg,#5B4AE8,#A99AFF);border-radius:4px;opacity:0.5"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="process">
+        <div class="section-eyebrow">How I work</div>
+        <h2 class="section-title display">Design with intent,<br>not assumption.</h2>
+        <p class="section-sub">Every project follows a rigorous, empathy-first process — from discovery through delivery.</p>
+        <div class="process-grid">
+            <div class="process-card">
+                <div class="process-icon"><i class="ti ti-search" style="color:var(--accent)" aria-hidden="true"></i></div>
+                <div class="process-num">Discover</div>
+                <div class="process-name display">Research &amp; Define</div>
+                <p class="process-desc">User interviews, competitive audits, heuristic reviews, and Jobs-to-be-Done mapping.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-icon"><i class="ti ti-bulb" style="color:var(--accent)" aria-hidden="true"></i></div>
+                <div class="process-num">Ideate</div>
+                <div class="process-name display">Explore &amp; Sketch</div>
+                <p class="process-desc">Divergent ideation, crazy-8s, low-fi wireframes, and structured design critiques.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-icon"><i class="ti ti-layout" style="color:var(--accent)" aria-hidden="true"></i></div>
+                <div class="process-num">Design</div>
+                <div class="process-name display">Prototype &amp; Test</div>
+                <p class="process-desc">High-fidelity Figma prototypes, usability testing, and iterative refinement with data.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-icon"><i class="ti ti-rocket" style="color:var(--accent)" aria-hidden="true"></i></div>
+                <div class="process-num">Deliver</div>
+                <div class="process-name display">Ship &amp; Measure</div>
+                <p class="process-desc">Developer handoff, design system contribution, and post-launch metric tracking.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="about">
+        <div class="two-col">
+            <div>
+                <div class="section-eyebrow">Skills</div>
+                <h2 class="section-title display">Craft across<br>the full stack.</h2>
+                <div class="skill-group" style="margin-top:28px">
+                    <div class="skill-group-label">UX Design</div>
+                    <div class="skill-item"><span class="skill-name">User Research</span>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar" style="width:90%"></div>
+                        </div><span class="skill-pct">90%</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">Wireframing</span>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar" style="width:95%"></div>
+                        </div><span class="skill-pct">95%</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">Prototyping</span>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar" style="width:88%"></div>
+                        </div><span class="skill-pct">88%</span>
+                    </div>
+                </div>
+                <div class="skill-group" style="margin-top:20px">
+                    <div class="skill-group-label">UI Design</div>
+                    <div class="skill-item"><span class="skill-name">Visual Design</span>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar" style="width:92%"></div>
+                        </div><span class="skill-pct">92%</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">Design Systems</span>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar" style="width:80%"></div>
+                        </div><span class="skill-pct">80%</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">Motion Design</span>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar" style="width:70%"></div>
+                        </div><span class="skill-pct">70%</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="section-eyebrow">Tools</div>
+                <h2 class="section-title display">My design<br>toolkit.</h2>
+                <div class="tools-row">
+                    <div class="tool-pill"><span class="tool-dot"></span>Figma</div>
+                    <div class="tool-pill"><span class="tool-dot"></span>FigJam</div>
+                    <div class="tool-pill"><span class="tool-dot"></span>ChatGPT</div>
+                    <div class="tool-pill"><span class="tool-dot" style="background:#E8574A"></span>Google Stitch</div>
+                    <div class="tool-pill"><span class="tool-dot" style="background:#E8574A"></span>Claude AI</div>
+                    <div class="tool-pill"><span class="tool-dot" style="background:#E8574A"></span>Claude Design</div>
+                    <div class="tool-pill"><span class="tool-dot" style="background:#1D9E75"></span>Perplexity</div>
+                </div>
+                <div
+                    style="margin-top:28px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+                    <div
+                        style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px">
+                        Currently learning</div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <div class="tool-pill" style="border-color:rgba(91,74,232,0.3);color:var(--accent)"><span class="tool-dot"></span>Rive animations</div>
+                        <div class="tool-pill" style="border-color:rgba(91,74,232,0.3);color:var(--accent)"><span class="tool-dot"></span>AI-assisted UX</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="contact" style="padding-bottom:80px">
+        <div class="cta-block">
+            <div>
+                <div
+                    style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px">
+                    Ready to build something great?</div>
+                <h2 class="cta-title display">Let's design your<br>next <span>big thing.</span></h2>
+            </div>
+            <div class="cta-right">
+                <div class="cta-email">Or email me at <a href="mailto:deepank12@gmail.com">deepank12@gmail.com</a></div>
+                <a href="mailto:deepank12@gmail.com" class="btn-white">Start a conversation →</a>
+                <div style="display:flex;gap:16px;flex-wrap:wrap">
+                    <a href="#" style="color:rgba(255,255,255,0.4);font-size:12px;text-decoration:none">LinkedIn ↗</a>
+                    <a href="#" style="color:rgba(255,255,255,0.4);font-size:12px;text-decoration:none">Dribbble ↗</a>
+                    <a href="#" style="color:rgba(255,255,255,0.4);font-size:12px;text-decoration:none">Behance ↗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Deepan K<span>.</span></div>
+        <div class="footer-note">© 2026 · Designed &amp; built with intention</div>
+        <div class="footer-links">
+            <a href="#work">Work</a>
+            <a href="#process">Process</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var nav = document.getElementById('siteNav');
+            var toggle = document.getElementById('navToggle');
+            var icon = toggle.querySelector('i');
+
+            function setOpen(open) {
+                nav.classList.toggle('open', open);
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+                icon.className = open ? 'ti ti-x' : 'ti ti-menu-2';
+            }
+
+            toggle.addEventListener('click', function () {
+                setOpen(!nav.classList.contains('open'));
+            });
+
+            // Close menu when a link is tapped
+            nav.querySelectorAll('.nav-links a').forEach(function (a) {
+                a.addEventListener('click', function () { setOpen(false); });
+            });
+
+            // Reset menu state if resized up to desktop
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 760) setOpen(false);
+            });
+        })();
+    </script>
+</body>
+
+</html>
