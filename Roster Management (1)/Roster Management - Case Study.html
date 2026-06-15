@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Roster Management System — UX Case Study</title>
+<link rel="stylesheet" href="assets/case-study.css" />
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav">
+  <div class="nav__inner">
+    <div class="nav__brand">
+      <span class="nav__dot">R</span>
+      RosterOS — Case Study
+    </div>
+    <div class="nav__links">
+      <a href="../index.html">Home</a>
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#research">Research</a>
+      <a href="#ia">Architecture</a>
+      <a href="#design-system">Design System</a>
+      <a href="#results">Results</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO / COVER ===================== -->
+<header class="hero" id="cover">
+  <div class="hero__grid"></div>
+  <div class="hero__inner">
+    <p class="eyebrow">Enterprise SaaS · Healthcare Workforce</p>
+    <h1>Roster Management System<br /><span class="accent">for hospital workforces.</span></h1>
+    <p class="hero__sub">A centralized platform that replaces spreadsheet-driven scheduling with real-time rostering, attendance, and leave management — built for safe staffing across every ward, every shift.</p>
+
+    <div class="tag-row">
+      <span class="tag">Scheduling</span>
+      <span class="tag">Attendance</span>
+      <span class="tag">Leave Management</span>
+      <span class="tag">Workforce Analytics</span>
+      <span class="tag">4 user roles</span>
+    </div>
+
+    <dl class="hero__meta">
+      <div><dt>Industry</dt><dd>Healthcare Workforce Mgmt</dd></div>
+      <div><dt>My Role</dt><dd>UI/UX Designer</dd></div>
+    </dl>
+  </div>
+</header>
+
+<!-- ===================== 01 OVERVIEW ===================== -->
+<section class="section" id="overview">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">01 — Project Overview</p>
+      <h2>One source of truth for who works, when, and where.</h2>
+      <p class="lead">RosterOS is an enterprise web application that gives hospitals a single, real-time view of their entire workforce — turning a fragile chain of spreadsheets, WhatsApp messages, and printed rotas into one governed system used by everyone from the Super Admin to the bedside nurse.</p>
+    </div>
+
+    <div class="grid cols-3 reveal" style="margin-bottom:40px;">
+      <div class="card">
+        <div class="card__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        </div>
+        <h3>What it is</h3>
+        <p>A roster management platform for scheduling, shift assignment, attendance, leave, overtime, and workforce planning — accessed by role-specific dashboards.</p>
+      </div>
+      <div class="card">
+        <div class="card__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <h3>Why it matters</h3>
+        <p>Staffing decisions in a hospital are patient-safety decisions. The right nurse-to-patient ratio on every shift is the difference between safe and unsafe care.</p>
+      </div>
+      <div class="card">
+        <div class="card__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg>
+        </div>
+        <h3>The goal</h3>
+        <p>Cut administrative effort, eliminate scheduling conflicts, and give every role the visibility they need — on a UI that stays usable under real operational pressure.</p>
+      </div>
+    </div>
+
+    <!-- Domain primer -->
+    <div class="card card--flat reveal" style="border-color:var(--teal-100); background:var(--teal-50);">
+      <p class="eyebrow">Domain primer</p>
+      <div class="grid cols-2" style="gap:32px;">
+        <div>
+          <h3 style="font-size:18px;">What is a Roster Management System?</h3>
+          <p style="color:var(--teal-900); margin-top:10px;">A roster (or "rota") is the published plan of which staff member works which shift. A Roster Management System operationalizes that plan end-to-end: it builds schedules from demand and skill rules, assigns people to shifts, tracks who actually showed up, processes leave and overtime, and reports on coverage and cost.</p>
+          <h3 style="font-size:18px; margin-top:24px;">Why hospitals specifically need it</h3>
+          <p style="color:var(--teal-900); margin-top:10px;">Care is delivered 24/7/365 across wards with different acuity, skill-mix, and legal minimum staffing. A missed shift isn't a missed meeting — it's an unsafe ward. Manual tools cannot keep up with the volume, the constraints, or the speed of change.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;">Operational risks without it</h3>
+          <ul class="ulist ulist--cross" style="margin-top:10px;">
+            <li>Understaffed shifts that breach safe nurse-to-patient ratios</li>
+            <li>Double-booked or fatigued staff working unsafe consecutive hours</li>
+            <li>Uncontrolled overtime and agency spend</li>
+            <li>Leave approved into already-thin coverage</li>
+            <li>No audit trail for compliance or incident review</li>
+          </ul>
+          <h3 style="font-size:18px; margin-top:24px;">KPIs that define success</h3>
+          <div class="tag-row" style="margin-top:12px;">
+            <span class="tag">Roster build time</span>
+            <span class="tag">Shift fill rate</span>
+            <span class="tag">Understaffed shift %</span>
+            <span class="tag">Overtime hours / cost</span>
+            <span class="tag">Leave approval time</span>
+            <span class="tag">Attendance accuracy</span>
+            <span class="tag">Agency spend</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 PROBLEM ===================== -->
+<section class="section section--tint" id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">02 — Problem Statement</p>
+      <h2>Hospitals were running their workforce on spreadsheets, paper, and WhatsApp.</h2>
+      <p class="lead">Staff schedules, shift assignments, and leave requests lived across spreadsheets, paper records, messaging groups, and manual communication — creating scheduling conflicts, delayed leave approvals, and a constant administrative drag.</p>
+    </div>
+
+    <div class="grid cols-2 reveal" style="margin-bottom:36px;">
+      <div class="card card--flat" style="background:var(--card);">
+        <p style="font-size:16px; color:var(--ink-2);">Hospital administrators struggle to quickly identify who is on duty, who is on leave, and whether enough staff are available for each shift. Staff lack any centralized place to view schedules, manage leave, and receive real-time updates.</p>
+      </div>
+      <div class="card card--flat" style="background:var(--card);">
+        <p style="font-size:16px; color:var(--ink-2);">As hospitals grow, managing multiple departments, staff roles, and shift rotations becomes increasingly complex — leading to operational inefficiencies and potential staffing shortages across the organization.</p>
+      </div>
+    </div>
+
+    <!-- Existing challenges, split by audience -->
+    <div class="grid cols-3 reveal" style="margin-bottom:36px;">
+      <div class="ba__col ba__col--before">
+        <h4>For Administrators</h4>
+        <ul class="ulist ulist--cross">
+          <li>Manual shift scheduling</li>
+          <li>Difficulty tracking staff availability</li>
+          <li>Leave approval bottlenecks</li>
+          <li>Lack of centralized visibility</li>
+          <li>Scheduling conflicts</li>
+        </ul>
+      </div>
+      <div class="ba__col ba__col--before">
+        <h4>For Staff</h4>
+        <ul class="ulist ulist--cross">
+          <li>Unclear shift schedules</li>
+          <li>Delayed leave approvals</li>
+          <li>Communication gaps</li>
+          <li>No centralized leave history</li>
+        </ul>
+      </div>
+      <div class="ba__col ba__col--before">
+        <h4>For Organizations</h4>
+        <ul class="ulist ulist--cross">
+          <li>Limited workforce visibility</li>
+          <li>Inefficient resource planning</li>
+          <li>Increased operational overhead</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HMW challenge -->
+    <div class="callout reveal">
+      <p style="font-size:19px; font-weight:600; font-family:var(--font-display); color:var(--teal-900); line-height:1.4;">How might we help hospital administrators manage staff shifts and leave requests efficiently — while giving staff a simple way to view schedules, request leave, and stay informed about workplace updates?</p>
+      <p class="who">— The core UX challenge</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 RESEARCH ===================== -->
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">03 — Research Phase</p>
+      <h2>We grounded the design in how staffing actually works on the floor.</h2>
+      <p class="lead">Because patient safety is at stake, assumptions were treated as hypotheses to validate — not facts. Research combined stakeholder interviews, competitive teardown, and shadowing of the real scheduling ritual.</p>
+    </div>
+
+    <div class="grid cols-2 reveal" style="margin-bottom:36px;">
+      <div class="card">
+        <h3>Research approach &amp; assumptions</h3>
+        <ul class="ulist" style="margin-top:16px;">
+          <li><b>Stakeholder interviews</b> with HR, supervisors, and department managers</li>
+          <li><b>Contextual shadowing</b> of a full roster-build cycle</li>
+          <li><b>Competitive analysis</b> of workforce-management tools</li>
+          <li><b>Assumption:</b> supervisors want control, not full automation — validated</li>
+          <li><b>Assumption:</b> nurses mostly need read access + self-service requests — validated</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Competitive analysis — patterns we learned from</h3>
+        <table class="demo-table" style="margin-top:8px;">
+          <thead><tr><th>Category</th><th>Strength</th><th>Gap we exploited</th></tr></thead>
+          <tbody>
+            <tr><td>Generic shift apps</td><td>Fast, mobile</td><td>No skill-mix / ratio rules</td></tr>
+            <tr><td>HR suites</td><td>Compliance, payroll</td><td>Scheduling buried &amp; clunky</td></tr>
+            <tr><td>Spreadsheets</td><td>Flexible, familiar</td><td>No validation, no real-time</td></tr>
+            <tr><td>Enterprise WFM</td><td>Powerful engine</td><td>Overwhelming, slow to adopt</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-head reveal" style="margin-bottom:24px;">
+      <h3 style="font-family:var(--font-display); font-size:24px; font-weight:800;">Key findings that shaped every decision</h3>
+    </div>
+    <div class="grid cols-3 reveal">
+      <div class="card">
+        <span class="chip info">Finding 01</span>
+        <h3 style="margin-top:14px; font-size:18px;">The grid is the product</h3>
+        <p>Supervisors think in a week-by-staff matrix. The scheduling grid had to feel faster and safer than their spreadsheet, or they wouldn't switch.</p>
+      </div>
+      <div class="card">
+        <span class="chip info">Finding 02</span>
+        <h3 style="margin-top:14px; font-size:18px;">Conflicts must be visible live</h3>
+        <p>Errors caught <em>while</em> assigning — not at month-end — were the single biggest source of trust. Validation needed to be inline and immediate.</p>
+      </div>
+      <div class="card">
+        <span class="chip info">Finding 03</span>
+        <h3 style="margin-top:14px; font-size:18px;">Every role sees a different hospital</h3>
+        <p>The same data needs five different framings. One dashboard could not serve a Staff Nurse and a Super Admin equally — role-aware views were essential.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 INFORMATION ARCHITECTURE ===================== -->
+<section class="section section--tint" id="ia">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">04 — Information Architecture</p>
+      <h2>A flat, role-aware sitemap.</h2>
+      <p class="lead">Fifteen modules grouped into five intent-based clusters. Navigation stays shallow — most tasks are one or two clicks from the dashboard — and surfaces only what a role is permitted to see.</p>
+    </div>
+
+    <div class="sitemap reveal">
+      <div class="sm-root">
+        <div class="sm-node">RosterOS · Dashboard (role-aware home)</div>
+        <div class="sm-cols">
+          <div class="sm-col">
+            <div class="sm-cat">Scheduling <span>/sched</span></div>
+            <ul class="sm-leaf">
+              <li>Scheduling Grid</li>
+              <li>Shift Templates</li>
+              <li>Shift Assignment</li>
+              <li>Staff Availability</li>
+            </ul>
+          </div>
+          <div class="sm-col">
+            <div class="sm-cat">Workforce <span>/people</span></div>
+            <ul class="sm-leaf">
+              <li>Employee Management</li>
+              <li>Department Management</li>
+              <li>Roles &amp; Permissions</li>
+            </ul>
+          </div>
+          <div class="sm-col">
+            <div class="sm-cat">Time &amp; Attend. <span>/time</span></div>
+            <ul class="sm-leaf">
+              <li>Attendance Tracking</li>
+              <li>Overtime Management</li>
+            </ul>
+          </div>
+          <div class="sm-col">
+            <div class="sm-cat">Leave <span>/leave</span></div>
+            <ul class="sm-leaf">
+              <li>Leave Requests</li>
+              <li>Leave Approvals</li>
+              <li>Leave Balances</li>
+            </ul>
+          </div>
+          <div class="sm-col">
+            <div class="sm-cat">Insight &amp; Admin <span>/admin</span></div>
+            <ul class="sm-leaf">
+              <li>Reports &amp; Analytics</li>
+              <li>Notifications</li>
+              <li>Settings</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="figcap reveal">Fig 04.1 — Information architecture. Persistent left-nav mirrors these five clusters; the dashboard adapts per role.</p>
+  </div>
+</section>
+
+<!-- ===================== 07 USER FLOWS ===================== -->
+<section class="section" id="flows">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">05 — User Flows</p>
+      <h2>Six core flows, designed for the fewest safe steps.</h2>
+      <p class="lead">Each flow was reduced to its essential decisions, with validation gates (amber) placed exactly where an unsafe action could occur.</p>
+    </div>
+
+    <div class="grid cols-2 reveal">
+      <!-- Flow 1 -->
+      <div class="flow">
+        <h3>Create roster</h3>
+        <p class="flow__role">Nursing Supervisor</p>
+        <div class="flow__lane">
+          <span class="node start">Open grid</span><span class="arrow">→</span>
+          <span class="node">Apply template</span><span class="arrow">→</span>
+          <span class="node">Auto-fill demand</span>
+        </div>
+        <span class="arrow arrow--down">↓</span>
+        <div class="flow__lane">
+          <span class="node decision">Conflicts?</span><span class="arrow">→</span>
+          <span class="node">Resolve inline</span><span class="arrow">→</span>
+          <span class="node end">Publish + notify</span>
+        </div>
+      </div>
+      <!-- Flow 2 -->
+      <div class="flow">
+        <h3>Assign shifts</h3>
+        <p class="flow__role">Supervisor / Dept Manager</p>
+        <div class="flow__lane">
+          <span class="node start">Pick cell</span><span class="arrow">→</span>
+          <span class="node">See eligible staff</span><span class="arrow">→</span>
+          <span class="node">Assign</span>
+        </div>
+        <span class="arrow arrow--down">↓</span>
+        <div class="flow__lane">
+          <span class="node decision">Rule check</span><span class="arrow">→</span>
+          <span class="node">Warn if breach</span><span class="arrow">→</span>
+          <span class="node end">Confirm assignment</span>
+        </div>
+      </div>
+      <!-- Flow 3 -->
+      <div class="flow">
+        <h3>Request leave</h3>
+        <p class="flow__role">Staff Nurse</p>
+        <div class="flow__lane">
+          <span class="node start">Open leave</span><span class="arrow">→</span>
+          <span class="node">See balance</span><span class="arrow">→</span>
+          <span class="node">Pick dates &amp; type</span>
+        </div>
+        <span class="arrow arrow--down">↓</span>
+        <div class="flow__lane">
+          <span class="node">Submit</span><span class="arrow">→</span>
+          <span class="node">Track status</span><span class="arrow">→</span>
+          <span class="node end">Notified on decision</span>
+        </div>
+      </div>
+      <!-- Flow 4 -->
+      <div class="flow">
+        <h3>Approve leave</h3>
+        <p class="flow__role">Supervisor / HR Manager</p>
+        <div class="flow__lane">
+          <span class="node start">Open request</span><span class="arrow">→</span>
+          <span class="node">See coverage impact</span>
+        </div>
+        <span class="arrow arrow--down">↓</span>
+        <div class="flow__lane">
+          <span class="node decision">Coverage safe?</span><span class="arrow">→</span>
+          <span class="node">Approve / deny</span><span class="arrow">→</span>
+          <span class="node end">Roster auto-updates</span>
+        </div>
+      </div>
+      <!-- Flow 5 -->
+      <div class="flow">
+        <h3>Shift swap</h3>
+        <p class="flow__role">Staff Nurse ↔ Supervisor</p>
+        <div class="flow__lane">
+          <span class="node start">Request swap</span><span class="arrow">→</span>
+          <span class="node">Suggest eligible peer</span><span class="arrow">→</span>
+          <span class="node">Peer accepts</span>
+        </div>
+        <span class="arrow arrow--down">↓</span>
+        <div class="flow__lane">
+          <span class="node decision">Skill &amp; hours ok?</span><span class="arrow">→</span>
+          <span class="node end">Approve + notify both</span>
+        </div>
+      </div>
+      <!-- Flow 6 -->
+      <div class="flow">
+        <h3>Attendance tracking</h3>
+        <p class="flow__role">Staff Nurse / System</p>
+        <div class="flow__lane">
+          <span class="node start">Clock in</span><span class="arrow">→</span>
+          <span class="node">Match to shift</span><span class="arrow">→</span>
+          <span class="node">Clock out</span>
+        </div>
+        <span class="arrow arrow--down">↓</span>
+        <div class="flow__lane">
+          <span class="node decision">Variance?</span><span class="arrow">→</span>
+          <span class="node">Flag late / OT</span><span class="arrow">→</span>
+          <span class="node end">Feeds reports</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 08 DESIGN PROCESS ===================== -->
+<section class="section section--tint" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">06 — Design Process</p>
+      <h2>From paper sketches to a validated grid.</h2>
+      <p class="lead">The scheduling grid went through the most iteration — it's the heart of the product, and the place where complexity had to disappear into something that feels effortless.</p>
+    </div>
+
+    <div class="split">
+      <div class="steps reveal">
+        <div class="step"><div class="step__n"></div><div><h3>Wireframing</h3><p>Low-fidelity layouts pressure-tested the navigation model and the grid's row/column logic before any visual design. Goal: prove the structure, not the pixels.</p></div></div>
+        <div class="step"><div class="step__n"></div><div><h3>Layout exploration</h3><p>We tested calendar-style, list-style, and matrix-style scheduling. The staff-by-day matrix won — it matched supervisors' existing mental model and showed coverage at a glance.</p></div></div>
+        <div class="step"><div class="step__n"></div><div><h3>Design iterations</h3><p>Iteration focused on density, inline validation, and how to show conflicts without alarm fatigue. Status color, cell states, and the warning system were refined across several rounds of feedback.</p></div></div>
+      </div>
+      <div class="reveal">
+        <div class="screen screen--tall">
+          <span class="screen__chip">Process artifact</span>
+          <span class="screen__label">Drop wireframe → hi-fi progression here</span>
+        </div>
+        <p class="figcap">Fig 06.1 — Wireframe to high-fidelity evolution of the scheduling grid.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 09 DESIGN SYSTEM ===================== -->
+<section class="section" id="design-system">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">07 — Design System</p>
+      <h2>A calm, legible system built for dense data.</h2>
+      <p class="lead">In a tool people stare at for hours, restraint is a feature. The system leans on a quiet neutral canvas, a single teal accent, and a disciplined status palette that carries meaning consistently everywhere.</p>
+    </div>
+
+    <!-- Colors -->
+    <div class="card reveal" style="margin-bottom:22px;">
+      <h3 style="font-size:19px; margin-bottom:6px;">Color</h3>
+      <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Teal anchors the brand and primary actions. Neutrals stay cool and low-saturation so status colors read instantly.</p>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--teal-700)"></div><div class="swatch__meta"><b>Primary</b><code>#0e7c86</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--teal-950)"></div><div class="swatch__meta"><b>Ink Teal</b><code>#06343a</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--teal-50); border-bottom:1px solid var(--line)"></div><div class="swatch__meta"><b>Tint</b><code>#eef7f6</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--ok)"></div><div class="swatch__meta"><b>Confirmed</b><code>#1f8a5b</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--warn)"></div><div class="swatch__meta"><b>Pending</b><code>#b5740c</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--crit)"></div><div class="swatch__meta"><b>Conflict</b><code>#c0392b</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--ot)"></div><div class="swatch__meta"><b>Overtime</b><code>#7a59c9</code></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--ink)"></div><div class="swatch__meta"><b>Text</b><code>#16201f</code></div></div>
+      </div>
+    </div>
+
+    <div class="grid cols-2 reveal" style="margin-bottom:22px;">
+      <!-- Type -->
+      <div class="card">
+        <h3 style="font-size:19px; margin-bottom:18px;">Typography</h3>
+        <div class="type-spec">
+          <div class="type-row"><span class="sample" style="font-size:30px; font-weight:800;">Schibsted Grotesk</span><span class="meta">Display · 600–900</span></div>
+          <div class="type-row"><span class="sample" style="font-size:20px; font-family:var(--font-body); font-weight:600;">Hanken Grotesk — body &amp; UI text</span><span class="meta">Body · 400–700</span></div>
+          <div class="type-row"><span class="sample" style="font-size:15px; font-family:var(--font-mono);">Space Mono · labels &amp; data</span><span class="meta">Mono · 400–700</span></div>
+        </div>
+        <p style="color:var(--muted); font-size:14px; margin-top:18px;">Display grotesk for hierarchy, a humanist sans for long reading, and mono for codes, timestamps, and metrics where character width must be predictable.</p>
+      </div>
+      <!-- Status indicators -->
+      <div class="card">
+        <h3 style="font-size:19px; margin-bottom:18px;">Status indicators</h3>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:18px;">One chip system, used identically across shifts, leave, attendance, and overtime — so a color always means the same thing.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <span class="chip ok">Confirmed</span>
+          <span class="chip warn">Pending</span>
+          <span class="chip crit">Conflict</span>
+          <span class="chip info">Scheduled</span>
+          <span class="chip ot">Overtime</span>
+          <span class="chip neutral">Off / —</span>
+        </div>
+        <div style="margin-top:22px; display:grid; gap:10px;">
+          <div style="display:flex; gap:10px; align-items:center;"><span class="chip crit">Understaffed</span><span style="font-size:13px; color:var(--muted)">Coverage below safe ratio</span></div>
+          <div style="display:flex; gap:10px; align-items:center;"><span class="chip ok">Fully staffed</span><span style="font-size:13px; color:var(--muted)">Meets skill-mix rules</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid cols-2 reveal">
+      <!-- Table component -->
+      <div class="card">
+        <h3 style="font-size:19px; margin-bottom:16px;">Data tables</h3>
+        <table class="demo-table">
+          <thead><tr><th>Staff</th><th>Ward</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="avatar-sm">SK</span>Sara Khan</td><td>ICU</td><td><span class="chip ok">Confirmed</span></td></tr>
+            <tr><td><span class="avatar-sm">JD</span>James Doyle</td><td>A&amp;E</td><td><span class="chip warn">Pending</span></td></tr>
+            <tr><td><span class="avatar-sm">ML</span>Mei Lin</td><td>Ward 4</td><td><span class="chip ot">Overtime</span></td></tr>
+          </tbody>
+        </table>
+        <p style="color:var(--muted); font-size:13.5px; margin-top:14px;">Zebra-free, hover-highlighted rows; avatar + name identity pattern; right-aligned status chips. Built for scanning hundreds of rows.</p>
+      </div>
+      <!-- Forms + cards -->
+      <div class="card">
+        <h3 style="font-size:19px; margin-bottom:16px;">Forms &amp; cards</h3>
+        <div class="form-demo">
+          <div class="field"><label>Leave type</label><select><option>Annual leave</option><option>Sick leave</option><option>Unpaid</option></select></div>
+          <div class="field"><label>Dates</label><input type="text" value="12 Jun – 16 Jun 2026" /></div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn--primary">Submit request</button>
+            <button class="btn btn--ghost">Cancel</button>
+          </div>
+        </div>
+        <p style="color:var(--muted); font-size:13.5px; margin-top:16px;">Generous 44px+ targets, clear focus rings, and a soft-card container system used for every panel, dialog, and dashboard widget.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 12 CHALLENGES ===================== -->
+<section class="section section--ink" id="challenges">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">08 — Challenges</p>
+      <h2>Hard problems we had to design around.</h2>
+    </div>
+    <div class="grid cols-2 reveal">
+      <div class="card"><h3 style="font-size:18px; color:#fff;">Complex scheduling workflows</h3><p>Balancing demand, skill-mix, hours, and fairness in one grid without overwhelming the user. Solved with templates, sensible defaults, and progressive disclosure of rules.</p></div>
+      <div class="card"><h3 style="font-size:18px; color:#fff;">Workforce planning at scale</h3><p>Hundreds of staff across many wards. The UI had to stay scannable and fast — driving the dense-table system and column-level coverage totals.</p></div>
+      <div class="card"><h3 style="font-size:18px; color:#fff;">Attendance &amp; reality drift</h3><p>The plan and what actually happens never fully match. We designed variance as a first-class, visible state rather than an error to hide.</p></div>
+      <div class="card"><h3 style="font-size:18px; color:#fff;">Designing for five roles</h3><p>One system, five very different jobs-to-be-done. Role-aware dashboards and a clear permission matrix kept each experience focused without forking the product.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 13 RESULTS ===================== -->
+<section class="section" id="results">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">09 — Results</p>
+      <h2>Outcomes the design set out to deliver.</h2>
+      <p class="lead">Projected impact based on the workflows redesigned. Replace with your measured figures once the system is in production.</p>
+    </div>
+    <div class="grid cols-4 reveal">
+      <div class="card stat"><div class="stat__num">−70%</div><div class="stat__lab">roster build time vs. spreadsheets</div></div>
+      <div class="card stat"><div class="stat__num">3×</div><div class="stat__lab">faster leave approvals</div></div>
+      <div class="card stat"><div class="stat__num">+40%</div><div class="stat__lab">improvement in staffing accuracy</div></div>
+      <div class="card stat"><div class="stat__num">Live</div><div class="stat__lab">org-wide workforce visibility</div></div>
+    </div>
+    <div class="grid cols-2 reveal" style="margin-top:22px;">
+      <div class="card"><h3 style="font-size:18px;">Operational impact</h3><ul class="ulist ulist--check" style="margin-top:14px;"><li>Reduced scheduling effort and rework</li><li>Fewer understaffed shifts and conflicts</li><li>Earlier, controllable overtime visibility</li></ul></div>
+      <div class="card"><h3 style="font-size:18px;">Experience impact</h3><ul class="ulist ulist--check" style="margin-top:14px;"><li>Transparent leave &amp; swap process for nurses</li><li>Confident, validated decisions for supervisors</li><li>Defensible, planned staffing for HR</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

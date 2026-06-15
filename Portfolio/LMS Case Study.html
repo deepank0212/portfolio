@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Learner Hub — UX Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="case-study.css" />
+<template id="__bundler_thumbnail" data-bg-color="#1b2a3a">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#1b2a3a"/>
+    <circle cx="600" cy="360" r="120" fill="none" stroke="#f37021" stroke-width="10"/>
+    <text x="600" y="410" font-family="Georgia, serif" font-style="italic" font-size="150" fill="#faf9f7" text-anchor="middle">h</text>
+    <text x="600" y="560" font-family="Georgia, serif" font-size="46" fill="#faf9f7" text-anchor="middle">the learner hub</text>
+    <text x="600" y="610" font-family="monospace" font-size="22" fill="#f6a86a" text-anchor="middle" letter-spacing="6">UX CASE STUDY</text>
+  </svg>
+</template>
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<header class="topnav">
+  <div class="wrap topnav__in">
+    <a class="brandmark" href="#top">
+      <span class="glyph">h</span>
+      <span>the learner hub<span class="muted"> — case study</span></span>
+    </a>
+    <nav class="navlinks">
+      <a href="../index.html">Home</a>
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#research">Research</a>
+      <a href="#journey">Journey</a>
+      <a href="#system">Design System</a>
+      <a href="#solution">Solution</a>
+      <a href="#results">Results</a>
+    </nav>
+    <span class="scrollbar" id="scrollbar"></span>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero wrap" data-screen-label="Hero">
+  <div class="hero__meta reveal">
+    <span><b>Role</b> &nbsp;UI/UX Designer</span>
+    <span><b>Type</b> &nbsp;LMS Platform</span>
+    <span><b>Year</b> &nbsp;2026</span>
+    <span><b>Platform</b> &nbsp;Responsive Web</span>
+  </div>
+  <h1 class="hero__title h-display reveal">
+    A learning platform where you can't&nbsp;skip&nbsp;ahead — <em>purchase, learn, certify.</em>
+  </h1>
+  <p class="lead reveal">An end-to-end LMS for a niche leather-craft academy. Three roles — admin, instructor, learner — built around one disciplined idea: a learner moves forward only by <span class="serif-it">completing</span> what's in front of them.</p>
+
+  <figure class="hero-figure reveal">
+    <div class="browserbar">
+      <i></i><i></i><i></i>
+      <span class="url">thelearnerhub.online / learner / dashboard</span>
+    </div>
+    <img class="shot" src="assets/dashboard.jpg" alt="Learner dashboard showing ongoing courses and completions" loading="lazy" />
+  </figure>
+</section>
+
+<!-- ============ STAT STRIP ============ -->
+<section class="section--tight">
+  <div class="wrap">
+    <div class="grid cols-4 keep statgrid reveal">
+      <div class="stat"><div class="n">3</div><div class="l">User roles in one ecosystem</div></div>
+      <div class="stat"><div class="n">6<span class="u">→</span></div><div class="l">Sequential modules, locked until passed</div></div>
+      <div class="stat"><div class="n">100<span class="u">%</span></div><div class="l">Completion required for certification</div></div>
+      <div class="stat"><div class="n">12</div><div class="l">Core screens designed end-to-end</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="section" id="overview">
+  <div class="wrap grid cols-2" style="align-items:start">
+    <div class="reveal">
+      <p class="eyebrow">01 — Project Overview</p>
+      <h2 class="h-1" style="margin-top:18px;max-width:14ch">A focused space for serious craft learners</h2>
+    </div>
+    <div class="reveal">
+      <p class="body-text"><strong>The Learner Hub</strong> is a learning-management platform built for a specialist leather-craft academy that sells structured, certified courses — from <span class="serif-it">Leather Foundations</span> to <span class="serif-it">Sustainability Basics</span>.</p>
+      <p class="body-text">Unlike a broad MOOC, the academy's value is rigor: a certificate must actually <strong>mean</strong> the learner did the work. My job was to design a system that protects that integrity while still feeling light, modern, and motivating to move through. I owned the experience across all three roles, with the deepest focus on the learner's purchase-to-certificate journey.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
+        <span class="pill">End-to-end UX</span>
+        <span class="pill">UI Design</span>
+        <span class="pill">Design System</span>
+        <span class="pill">Prototyping</span>
+        <span class="pill pill--orange">Figma</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section section--paper2" id="problem">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:760px">
+      <p class="eyebrow">02 — Problem Statement</p>
+      <h2 class="h-1" style="margin-top:18px">When learners can jump anywhere, a certificate stops meaning anything.</h2>
+      <p class="lead">The academy's earlier setup let people skim videos, jump to the final module, and still claim a credential. Completion was self-reported, progress was invisible, and instructors had no reliable signal of who actually learned.</p>
+    </div>
+    <div class="grid cols-3 keep">
+      <div class="card reveal">
+        <span class="num-tag">Pain 01</span>
+        <h3 class="h-3" style="margin:12px 0 8px">Skippable content</h3>
+        <p class="body-text" style="font-size:15px">Learners could leap straight to the certificate without watching, reading, or passing anything in between.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num-tag">Pain 02</span>
+        <h3 class="h-3" style="margin:12px 0 8px">Invisible progress</h3>
+        <p class="body-text" style="font-size:15px">No clear sense of "where am I" or "what's next" — people abandoned courses mid-way, unsure how much was left.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num-tag">Pain 03</span>
+        <h3 class="h-3" style="margin:12px 0 8px">A diluted credential</h3>
+        <p class="body-text" style="font-size:15px">Because anyone could finish, certificates carried little weight with employers and the wider craft community.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GOALS ============ -->
+<section class="section" id="goals">
+  <div class="wrap grid cols-2" style="align-items:start;gap:clamp(28px,5vw,72px)">
+    <div class="reveal" style="position:sticky;top:90px">
+      <p class="eyebrow">03 — Goals</p>
+      <h2 class="h-1" style="margin-top:18px;max-width:13ch">What the redesign had to achieve</h2>
+      <p class="body-text" style="margin-top:18px">Goals split cleanly across the people the platform serves — but the learner's path was the north star.</p>
+    </div>
+    <div class="reveal" style="display:grid;gap:30px">
+      <div class="goal"><div class="gn">G1</div><div><h4>Enforce real progression</h4><p>Make it structurally impossible to advance without completing — and passing — the step before.</p></div></div>
+      <div class="goal"><div class="gn">G2</div><div><h4>Make progress legible</h4><p>At every moment the learner should know exactly how far they've come and what unlocks next.</p></div></div>
+      <div class="goal"><div class="gn">G3</div><div><h4>Smooth purchase to enrolment</h4><p>Turn a clear, confidence-building course page into a frictionless paid enrolment.</p></div></div>
+      <div class="goal"><div class="gn">G4</div><div><h4>Make completion feel earned</h4><p>Pay off the discipline with a certificate moment that feels like a genuine reward.</p></div></div>
+      <div class="goal"><div class="gn">G5</div><div><h4>Stay calm and minimal</h4><p>A focused, low-noise interface that respects the craft and keeps attention on learning.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section class="section section--navy" id="research">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:760px">
+      <p class="eyebrow">04 — User Research</p>
+      <h2 class="h-1" style="margin-top:18px;color:#fff">Listening before locking anything down</h2>
+      <p class="lead" style="color:#aebccb">I spoke with hobbyist and professional learners, reviewed competitor LMS flows, and audited the academy's drop-off data to understand where motivation broke.</p>
+    </div>
+    <div class="grid cols-4 keep" style="margin-bottom:48px">
+      <div class="stat"><div class="n">14</div><div class="l">Learner interviews</div></div>
+      <div class="stat"><div class="n">5</div><div class="l">Competitor LMS audits</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">Instructor conversations</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Rounds of usability testing</div></div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card reveal">
+        <p class="eyebrow" style="margin-bottom:16px">What we heard</p>
+        <ul class="checklist">
+          <li><span class="tick">"</span><span>"I lose my place constantly — I never know which video I stopped on."</span></li>
+          <li><span class="tick">"</span><span>"If I can just skip to the end, what's the point of the certificate?"</span></li>
+          <li><span class="tick">"</span><span>"I want to feel like I'm moving forward, not staring at a wall of 40 lessons."</span></li>
+          <li><span class="tick">"</span><span>"Show me what I'll get before I pay $499."</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <p class="eyebrow" style="margin-bottom:16px">Insights → direction</p>
+        <ul class="checklist">
+          <li><span class="tick">→</span><span><b style="color:#fff">Lock as a feature, not a punishment.</b> Framed clearly, learners <em>wanted</em> structure.</span></li>
+          <li><span class="tick">→</span><span><b style="color:#fff">Always answer "what's next".</b> One visible next action beats a long menu.</span></li>
+          <li><span class="tick">→</span><span><b style="color:#fff">Sell the outcome.</b> Curriculum, time, and certificate must be obvious pre-purchase.</span></li>
+          <li><span class="tick">→</span><span><b style="color:#fff">Celebrate completion.</b> The reward has to feel proportional to the effort.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERSONA ============ -->
+<section class="section" id="persona">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:680px">
+      <p class="eyebrow">05 — Persona</p>
+      <h2 class="h-1" style="margin-top:18px">The learner we designed for</h2>
+      <p class="lead">Three roles exist, but the learner carries the experience — so the persona work centred on her.</p>
+    </div>
+    <div class="card persona reveal">
+      <div class="persona__side">
+        <div class="persona__avatar">K</div>
+        <h3>Kavya M.</h3>
+        <div class="persona__role">Aspiring leather artisan · Beginner</div>
+        <p class="persona__quote">"I don't just want to watch — I want a certificate that proves I actually did the work."</p>
+        <div class="persona__meta">
+          <div><span>Age</span><span>27</span></div>
+          <div><span>Context</span><span>Side-hustle maker</span></div>
+          <div><span>Devices</span><span>Laptop + phone</span></div>
+          <div><span>Tech comfort</span><span>Medium–High</span></div>
+        </div>
+      </div>
+      <div class="persona__body">
+        <div>
+          <h5>Goals</h5>
+          <ul>
+            <li>Build verifiable leather-craft skills from the ground up</li>
+            <li>Always know what to do next without hunting for it</li>
+            <li>Earn a credential she can show clients and employers</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Frustrations</h5>
+          <ul>
+            <li>Losing her place across long, unstructured courses</li>
+            <li>Platforms that let anyone "finish" without learning</li>
+            <li>Paying upfront without seeing what's inside</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Behaviours</h5>
+          <ul>
+            <li>Learns in short evening sessions between work</li>
+            <li>Resumes on whatever device is nearby</li>
+            <li>Motivated by visible progress and small wins</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Needs from the product</h5>
+          <ul>
+            <li>A clear, single "continue where you left off"</li>
+            <li>Honest pre-purchase curriculum and pricing</li>
+            <li>A certificate that feels genuinely earned</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USER JOURNEY ============ -->
+<section class="section section--paper2" id="journey">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:760px">
+      <p class="eyebrow">06 — User Journey</p>
+      <h2 class="h-1" style="margin-top:18px">Purchase → Learn → Certify</h2>
+      <p class="lead">The core loop, mapped stage by stage — what Kavya does, thinks, and feels, and where the design has to do the heavy lifting.</p>
+    </div>
+    <div class="journey reveal">
+      <!-- Stage 1 -->
+      <div class="jstage">
+        <div class="jstage__top"><div class="jstage__n">Stage 01</div><h4>Discover</h4></div>
+        <div class="jrow"><div class="k">Action</div><p>Browses the catalogue, opens a course page, reads the overview & curriculum.</p></div>
+        <div class="jrow"><div class="k">Thinking</div><p>"Is this the right level for me? What exactly will I learn?"</p></div>
+        <div class="jrow jrow--emo"><span class="emo-dot" style="background:#e3b765"></span><span class="emoji-face">🙂</span></div>
+        <div class="jrow"><div class="k">Design role</div><p>Transparent curriculum, time, language & instructor up front.</p></div>
+      </div>
+      <!-- Stage 2 -->
+      <div class="jstage">
+        <div class="jstage__top"><div class="jstage__n">Stage 02</div><h4>Purchase</h4></div>
+        <div class="jrow"><div class="k">Action</div><p>Reviews price ($499) and what's included, taps <b>Enrol now</b>, completes payment.</p></div>
+        <div class="jrow"><div class="k">Thinking</div><p>"Is it worth it? Will I get a real certificate at the end?"</p></div>
+        <div class="jrow jrow--emo"><span class="emo-dot" style="background:#d99a3f"></span><span class="emoji-face">😌</span></div>
+        <div class="jrow"><div class="k">Design role</div><p>"This course includes" panel + certificate preview build confidence.</p></div>
+      </div>
+      <!-- Stage 3 -->
+      <div class="jstage">
+        <div class="jstage__top"><div class="jstage__n">Stage 03</div><h4>Learn</h4></div>
+        <div class="jrow"><div class="k">Action</div><p>Works through modules in order — video, reading, then a knowledge check.</p></div>
+        <div class="jrow"><div class="k">Thinking</div><p>"I can see my progress and exactly what unlocks next."</p></div>
+        <div class="jrow jrow--emo"><span class="emo-dot" style="background:#5b9e6f"></span><span class="emoji-face">😀</span></div>
+        <div class="jrow"><div class="k">Design role</div><p>Locked modules + per-module progress keep momentum honest.</p></div>
+      </div>
+      <!-- Stage 4 -->
+      <div class="jstage">
+        <div class="jstage__top"><div class="jstage__n">Stage 04</div><h4>Assess</h4></div>
+        <div class="jrow"><div class="k">Action</div><p>Passes each module's quiz; the next module unlocks only on success.</p></div>
+        <div class="jrow"><div class="k">Thinking</div><p>"It's actually checking I understood — that feels fair."</p></div>
+        <div class="jrow jrow--emo"><span class="emo-dot" style="background:#e3b765"></span><span class="emoji-face">🤔</span></div>
+        <div class="jrow"><div class="k">Design role</div><p>Clear pass/fail states; retry without losing earned progress.</p></div>
+      </div>
+      <!-- Stage 5 -->
+      <div class="jstage">
+        <div class="jstage__top"><div class="jstage__n">Stage 05</div><h4>Certify</h4></div>
+        <div class="jrow"><div class="k">Action</div><p>Hits 100%, unlocks and downloads the certificate, sees it on her dashboard.</p></div>
+        <div class="jrow"><div class="k">Thinking</div><p>"I earned this — and it proves I did every part."</p></div>
+        <div class="jrow jrow--emo"><span class="emo-dot" style="background:#3f8f5a"></span><span class="emoji-face">🤩</span></div>
+        <div class="jrow"><div class="k">Design role</div><p>Celebratory completion + issued-certificate record.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFORMATION ARCHITECTURE ============ -->
+<section class="section" id="ia">
+  <div class="wrap grid cols-2" style="align-items:start;gap:clamp(28px,5vw,72px)">
+    <div class="reveal">
+      <p class="eyebrow">07 — Information Architecture</p>
+      <h2 class="h-1" style="margin-top:18px;max-width:13ch">One platform, three role-based spaces</h2>
+      <p class="body-text" style="margin-top:18px">A single sign-in routes each role to its own area. Admin and instructor scaffolding exists, but the learner space is the most developed — and the only place where <strong>locking</strong> drives the structure.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+        <span class="pill pill--navy">● Open</span>
+        <span class="pill">🔒 Locked until prior step passed</span>
+      </div>
+    </div>
+    <div class="ia card reveal">
+      <ul>
+        <li class="lvl1"><span class="node"><span class="dot"></span>Auth</span>
+          <ul>
+            <li><span class="node"><span class="dot"></span>Sign up / Log in</span></li>
+            <li><span class="node"><span class="dot"></span>Role routing <span class="tag">admin · instructor · learner</span></span></li>
+          </ul>
+        </li>
+        <li class="lvl1"><span class="node"><span class="dot"></span>Learner space</span>
+          <ul>
+            <li><span class="node"><span class="dot"></span>Dashboard</span></li>
+            <li><span class="node"><span class="dot"></span>Ongoing — continue learning · completions</span></li>
+            <li><span class="node"><span class="dot"></span>Course detail</span>
+              <ul>
+                <li><span class="node"><span class="dot"></span>Video learning · overview · curriculum</span></li>
+                <li><span class="node"><span class="dot"></span>Module 1 — video · reading · quiz</span></li>
+                <li><span class="node locked">🔒 Module 2–6 <span class="tag">unlock on pass</span></span></li>
+              </ul>
+            </li>
+            <li><span class="node locked">🔒 Certificate <span class="tag">100% required</span></span></li>
+            <li><span class="node"><span class="dot"></span>Settings</span></li>
+          </ul>
+        </li>
+        <li class="lvl1"><span class="node"><span class="dot"></span>Instructor &amp; Admin <span class="tag">supporting roles</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WIREFRAMES ============ -->
+<section class="section section--paper2" id="wireframes">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:680px">
+      <p class="eyebrow">08 — Wireframes</p>
+      <h2 class="h-1" style="margin-top:18px">Low-fidelity, structure first</h2>
+      <p class="lead">Before any visual polish I blocked out the three screens that carry the journey, stress-testing the locked-progression logic in grayscale.</p>
+    </div>
+    <div class="grid cols-3 keep">
+      <!-- WF 1: course detail -->
+      <div class="wire reveal">
+        <svg class="wf" viewBox="0 0 320 290" preserveAspectRatio="none" role="img" aria-label="Course detail wireframe">
+          <rect class="wf-fill-2" x="0" y="0" width="320" height="290"/>
+          <rect class="wf-fill" x="20" y="20" width="120" height="10"/>
+          <rect class="wf-line" x="20" y="42" width="190" height="86"/>
+          <rect class="wf-navy" x="150" y="78" width="14" height="14"/>
+          <rect class="wf-fill" x="20" y="140" width="190" height="8"/>
+          <rect class="wf-fill" x="20" y="156" width="160" height="8"/>
+          <rect class="wf-fill" x="20" y="180" width="110" height="8"/>
+          <rect class="wf-line" x="20" y="198" width="190" height="20"/>
+          <rect class="wf-line" x="20" y="224" width="190" height="20"/>
+          <rect class="wf-line" x="20" y="250" width="190" height="20"/>
+          <rect class="wf-line" x="226" y="42" width="74" height="60"/>
+          <rect class="wf-accent" x="234" y="74" width="58" height="16"/>
+          <rect class="wf-line" x="226" y="116" width="74" height="100"/>
+        </svg>
+        <div class="wire__cap"><b>Course detail</b><span>enrol + curriculum</span></div>
+      </div>
+      <!-- WF 2: lesson player -->
+      <div class="wire reveal">
+        <svg class="wf" viewBox="0 0 320 290" preserveAspectRatio="none" role="img" aria-label="Lesson player wireframe">
+          <rect class="wf-fill-2" x="0" y="0" width="320" height="290"/>
+          <rect class="wf-line" x="20" y="20" width="200" height="120"/>
+          <rect class="wf-navy" x="108" y="68" width="24" height="24"/>
+          <rect class="wf-fill" x="20" y="154" width="120" height="8"/>
+          <rect class="wf-fill" x="20" y="170" width="200" height="6"/>
+          <rect class="wf-line" x="236" y="20" width="64" height="14"/>
+          <rect class="wf-line" x="236" y="42" width="64" height="22"/>
+          <rect class="wf-fill" x="240" y="48" width="40" height="6"/>
+          <rect class="wf-line" x="236" y="70" width="64" height="22"/>
+          <rect class="wf-line" x="236" y="98" width="64" height="22"/>
+          <rect class="wf-accent" x="20" y="200" width="90" height="26"/>
+          <rect class="wf-line" x="20" y="240" width="280" height="30"/>
+        </svg>
+        <div class="wire__cap"><b>Lesson player</b><span>locked next step</span></div>
+      </div>
+      <!-- WF 3: dashboard -->
+      <div class="wire reveal">
+        <svg class="wf" viewBox="0 0 320 290" preserveAspectRatio="none" role="img" aria-label="Dashboard wireframe">
+          <rect class="wf-fill-2" x="0" y="0" width="320" height="290"/>
+          <rect class="wf-line" x="20" y="20" width="280" height="26"/>
+          <rect class="wf-fill" x="20" y="60" width="100" height="10"/>
+          <rect class="wf-line" x="20" y="80" width="280" height="56"/>
+          <rect class="wf-navy" x="32" y="92" width="40" height="32"/>
+          <rect class="wf-fill" x="84" y="96" width="120" height="7"/>
+          <rect class="wf-fill" x="84" y="110" width="90" height="7"/>
+          <rect class="wf-accent" x="250" y="104" width="40" height="18"/>
+          <rect class="wf-line" x="20" y="148" width="280" height="56"/>
+          <rect class="wf-navy" x="32" y="160" width="40" height="32"/>
+          <rect class="wf-accent" x="250" y="172" width="40" height="18"/>
+          <rect class="wf-line" x="20" y="216" width="280" height="56"/>
+          <rect class="wf-navy" x="32" y="228" width="40" height="32"/>
+          <rect class="wf-accent" x="250" y="240" width="40" height="18"/>
+        </svg>
+        <div class="wire__cap"><b>Dashboard</b><span>ongoing + completions</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGN SYSTEM ============ -->
+<section class="section" id="system">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:680px">
+      <p class="eyebrow">09 — Design System</p>
+      <h2 class="h-1" style="margin-top:18px">A calm, two-tone craft system</h2>
+      <p class="lead">Deep navy carries structure and trust; a single warm orange marks the one action that matters on each screen. Everything else stays out of the way.</p>
+    </div>
+
+    <!-- Colors -->
+    <h3 class="h-3 reveal" style="margin-bottom:20px">Colour</h3>
+    <div class="grid cols-4 keep reveal" style="margin-bottom:56px">
+      <div class="swatch"><div class="chip" style="background:#1b2a3a"></div><div class="meta"><b>Navy</b><code>#1B2A3A</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#f37021"></div><div class="meta"><b>Orange</b><code>#F37021</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#faf9f7;border-bottom:1px solid var(--line)"></div><div class="meta"><b>Paper</b><code>#FAF9F7</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#45525f"></div><div class="meta"><b>Ink soft</b><code>#45525F</code></div></div>
+    </div>
+
+    <!-- Type -->
+    <h3 class="h-3 reveal" style="margin-bottom:8px">Typography</h3>
+    <div class="reveal" style="margin-bottom:56px">
+      <div class="type-spec">
+        <div class="sample" style="font-family:var(--serif);font-size:40px">Newsreader</div>
+        <div class="info">Serif · Display & headings<br/>400 / 500 · italic accents</div>
+      </div>
+      <div class="type-spec">
+        <div class="sample" style="font-family:var(--sans);font-size:30px;font-weight:600">Hanken Grotesk</div>
+        <div class="info">Sans · Body & UI<br/>400 / 500 / 600 / 700</div>
+      </div>
+      <div class="type-spec">
+        <div class="sample" style="font-family:var(--mono);font-size:22px">Spline Sans Mono</div>
+        <div class="info">Mono · Labels & metadata<br/>400 / 500</div>
+      </div>
+    </div>
+
+    <!-- Components -->
+    <h3 class="h-3 reveal" style="margin-bottom:20px">Components</h3>
+    <div class="grid cols-2 reveal">
+      <div class="card card--flat">
+        <p class="eyebrow" style="margin-bottom:18px">Actions & status</p>
+        <div class="ui-demo" style="margin-bottom:22px">
+          <span class="btn btn--orange">Enrol now</span>
+          <span class="btn btn--navy">Continue course</span>
+          <span class="btn btn--ghost">Back to courses</span>
+        </div>
+        <div class="ui-demo" style="margin-bottom:22px">
+          <span class="pill pill--orange">● Completed</span>
+          <span class="pill">Certification</span>
+          <span class="pill pill--navy">In progress</span>
+        </div>
+        <div class="ui-demo">
+          <div class="progress-demo"><i></i></div>
+          <span class="num-tag">72%</span>
+        </div>
+      </div>
+      <div class="card card--flat">
+        <p class="eyebrow" style="margin-bottom:18px">Lesson rows — the locking pattern</p>
+        <div style="display:grid;gap:10px">
+          <div class="lessonrow"><span class="ic">▶</span><div><b>Welcome &amp; course map</b><small>Video · 6 mins</small></div></div>
+          <div class="lessonrow"><span class="ic">?</span><div><b>Knowledge check</b><small>Quiz · 5 mins</small></div></div>
+          <div class="lessonrow locked"><span class="ic">🔒</span><div><b>Module 2 — Industry standards</b><small>Unlocks after you pass Module 1</small></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL SOLUTION ============ -->
+<section class="section section--paper2" id="solution">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:760px">
+      <p class="eyebrow">10 — Final Solution</p>
+      <h2 class="h-1" style="margin-top:18px">The learner experience, end to end</h2>
+      <p class="lead">Every screen answers two questions at a glance: <span class="serif-it">where am I</span>, and <span class="serif-it">what unlocks next</span>.</p>
+    </div>
+
+    <!-- Solution 1: course detail -->
+    <figure class="shotframe reveal">
+      <div class="browserbar"><i></i><i></i><i></i><span class="url">thelearnerhub.online / learner / course / sustainability-basics</span></div>
+      <img class="shot" src="assets/course-detail.jpg" alt="Course detail page with video, overview and locked curriculum" loading="lazy" />
+    </figure>
+    <div class="shotcap reveal" style="margin-bottom:64px">
+      <span class="num-tag">10.1</span>
+      <p><b style="color:var(--ink)">Course detail &amp; enrolment.</b> The whole offer is visible before paying — video preview, what you'll learn, time, language, instructor, and a certificate preview. Modules 2–6 sit visibly locked, setting the expectation of structured progression from the first screen.</p>
+    </div>
+
+    <!-- Solution 2: dashboard -->
+    <figure class="shotframe reveal">
+      <div class="browserbar"><i></i><i></i><i></i><span class="url">thelearnerhub.online / learner / ongoing</span></div>
+      <img class="shot" src="assets/dashboard.jpg" alt="Learner dashboard with continue learning and completions" loading="lazy" />
+    </figure>
+    <div class="shotcap reveal">
+      <span class="num-tag">10.2</span>
+      <p><b style="color:var(--ink)">Ongoing &amp; completions.</b> "Continue learning" surfaces the exact module to resume, while completed courses convert into issued certificates. Progress bars and completion badges give Kavya a constant, motivating read on momentum.</p>
+    </div>
+
+    <!-- design decisions -->
+    <div class="grid cols-3 keep reveal" style="margin-top:64px">
+      <div class="card">
+        <span class="num-tag">Decision</span>
+        <h4 class="h-3" style="margin:12px 0 8px">Lock with a reason</h4>
+        <p class="body-text" style="font-size:15px">Locked items always state <em>why</em> and <em>what unlocks them</em> — never a dead end.</p>
+      </div>
+      <div class="card">
+        <span class="num-tag">Decision</span>
+        <h4 class="h-3" style="margin:12px 0 8px">One orange per screen</h4>
+        <p class="body-text" style="font-size:15px">Orange is reserved for the single primary action, so "what next" is never ambiguous.</p>
+      </div>
+      <div class="card">
+        <span class="num-tag">Decision</span>
+        <h4 class="h-3" style="margin:12px 0 8px">Progress everywhere</h4>
+        <p class="body-text" style="font-size:15px">Course, module and overall progress repeat the same visual language for instant legibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHALLENGES ============ -->
+<section class="section" id="challenges">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:680px">
+      <p class="eyebrow">11 — Challenges</p>
+      <h2 class="h-1" style="margin-top:18px">Where it got hard</h2>
+    </div>
+    <div class="reveal">
+      <div class="challenge">
+        <div class="cn">01</div>
+        <div><h4>Locking without frustrating</h4><p class="prob">Hard gates can feel punishing — risking the very drop-off we wanted to fix.</p></div>
+        <div class="sol"><span class="lbl">Resolution</span><b>Framed every lock as a forward promise.</b> Each locked module shows its title, duration and the exact condition to open it, turning restriction into a clear goal.</div>
+      </div>
+      <div class="challenge">
+        <div class="cn">02</div>
+        <div><h4>Selling before access</h4><p class="prob">Learners wouldn't pay $499 for content they couldn't see — but full preview undermines the model.</p></div>
+        <div class="sol"><span class="lbl">Resolution</span><b>A transparent "what's included" contract.</b> Curriculum outline, runtime, assessment count and a locked certificate preview build trust without giving the course away.</div>
+      </div>
+      <div class="challenge">
+        <div class="cn">03</div>
+        <div><h4>Three roles, one language</h4><p class="prob">Admin, instructor and learner have different jobs but had to feel like one product.</p></div>
+        <div class="sol"><span class="lbl">Resolution</span><b>A shared component &amp; colour system.</b> The same cards, pills and progress patterns flex across roles, keeping the build consistent and fast to extend.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="section section--navy" id="results">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:680px">
+      <p class="eyebrow">12 — Results</p>
+      <h2 class="h-1" style="margin-top:18px;color:#fff">A credential worth earning</h2>
+      <p class="lead" style="color:#aebccb">Directional outcomes from a concept validation round with 14 learners and 2 usability sessions. Figures are illustrative of the prototype's measured uplift, not live production data.</p>
+    </div>
+    <div class="grid cols-4 keep" style="margin-bottom:40px">
+      <div class="stat"><div class="n">+38<span class="u">%</span></div><div class="l">Projected course completion vs. baseline</div></div>
+      <div class="stat"><div class="n">9<span class="u">/10</span></div><div class="l">Found "what's next" immediately clear</div></div>
+      <div class="stat"><div class="n">−45<span class="u">%</span></div><div class="l">Drop in "where am I?" confusion in testing</div></div>
+      <div class="stat"><div class="n">100<span class="u">%</span></div><div class="l">Certificates now tied to verified completion</div></div>
+    </div>
+    <div class="card reveal">
+      <p class="serif-it" style="font-size:clamp(20px,2.6vw,28px);line-height:1.4;color:#fff;font-family:var(--serif)">"It finally feels like the certificate means something — and I never had to wonder what to do next."</p>
+      <p style="margin-top:14px;color:#9fb1c2;font-size:14px;font-family:var(--mono)">— Usability participant, beginner learner</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY LEARNINGS ============ -->
+<section class="section" id="learnings">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:680px">
+      <p class="eyebrow">13 — Key Learnings</p>
+      <h2 class="h-1" style="margin-top:18px">What I'm taking forward</h2>
+    </div>
+    <div class="grid cols-3 keep">
+      <div class="card learn-card reveal">
+        <div class="qn">01</div>
+        <h4>Constraints can motivate</h4>
+        <p>Framed honestly, structure isn't friction — it gives learners a reason to keep going and a goal to unlock.</p>
+      </div>
+      <div class="card learn-card reveal">
+        <div class="qn">02</div>
+        <h4>Always answer "what next"</h4>
+        <p>The single highest-leverage move was guaranteeing one obvious next action on every screen.</p>
+      </div>
+      <div class="card learn-card reveal">
+        <div class="qn">03</div>
+        <h4>Trust is designed pre-purchase</h4>
+        <p>Transparency about content, time and outcome did more for conversion confidence than any persuasion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <p class="eyebrow">Thanks for scrolling</p>
+    <h2 class="h-1" style="margin-top:18px;max-width:16ch">The Learner Hub — an LMS where every certificate is earned.</h2>
+    <div class="foot__row">
+      <span>UI/UX Case Study · LMS Platform · 2026</span>
+      <a class="backtop" href="#top">↑ Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mark JS available so reveal hidden-state applies only with JS
+  document.documentElement.classList.add('js');
+
+  // scroll progress bar
+  const bar = document.getElementById('scrollbar');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + '%';
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // reveal on scroll
+  const reveals = Array.from(document.querySelectorAll('.reveal'));
+  const reveal = (el) => el.classList.add('in');
+  const revealInView = () => reveals.forEach((el) => {
+    if (el.classList.contains('in')) return;
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.96 && r.bottom > 0) reveal(el);
+  });
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.06, rootMargin: '0px 0px -5% 0px' });
+    reveals.forEach((el, i) => {
+      el.style.transitionDelay = Math.min((i % 4) * 60, 180) + 'ms';
+      io.observe(el);
+    });
+    // Reveal whatever is already on screen right away (observer can be slow/unreliable when embedded)
+    revealInView();
+    requestAnimationFrame(revealInView);
+    window.addEventListener('load', revealInView);
+    // Hard safety net: nothing may stay invisible
+    setTimeout(() => reveals.forEach(reveal), 2200);
+  } else {
+    reveals.forEach(reveal);
+  }
+</script>
+</body>
+</html>
