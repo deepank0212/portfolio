@@ -1,0 +1,723 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:#0a0e14;color:#e8eaf0;line-height:1.7;-webkit-text-size-adjust:100%}
+
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#1ABFAA}
+.display{font-size:clamp(28px,8vw,64px);font-weight:800;line-height:1.05;letter-spacing:-.03em}
+.h1{font-size:clamp(22px,6vw,44px);font-weight:700;line-height:1.1;letter-spacing:-.02em}
+.h2{font-size:clamp(18px,5vw,30px);font-weight:700;line-height:1.2}
+.h3{font-size:clamp(15px,4vw,18px);font-weight:600}
+.h4{font-size:14px;font-weight:600}
+.body{font-size:14px;line-height:1.75;color:#b0b8c8}
+.body-lg{font-size:clamp(14px,3.5vw,17px);line-height:1.8;color:#c0c8d8}
+.caption{font-size:11px;color:#6b7a8f;letter-spacing:.04em}
+
+.page{max-width:860px;margin:0 auto;padding:0 16px}
+@media(min-width:540px){.page{padding:0 28px}}
+@media(min-width:768px){.page{padding:0 40px}}
+
+section{padding:56px 0}
+@media(min-width:540px){section{padding:72px 0}}
+section+section{border-top:1px solid #161d28}
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.section-label::after{content:'';flex:1;height:1px;background:#1e2a38}
+
+.hero{background:#0a0e14;padding:64px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-120px;width:380px;height:380px;background:radial-gradient(circle,#1ABFAA14 0%,transparent 70%);pointer-events:none}
+
+.hero-grid{display:grid;grid-template-columns:1fr;gap:40px}
+@media(min-width:640px){.hero-grid{grid-template-columns:1fr 1fr;gap:48px;align-items:center}}
+
+.hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;padding-top:32px;border-top:1px solid #1e2a38}
+@media(min-width:400px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+.meta-item .label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#4a5568;font-weight:600;margin-bottom:5px}
+.meta-item .value{font-size:13px;font-weight:500;color:#e8eaf0}
+
+.tag{display:inline-block;background:#111820;border:1px solid #1e2a38;color:#8896a8;font-size:11px;font-weight:500;padding:4px 10px;border-radius:6px}
+.tag.teal{background:#071a18;border-color:#1ABFAA40;color:#1ABFAA}
+.tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+
+.card{background:#0f1620;border:1px solid #1a2436;border-radius:14px;padding:20px}
+.card-accent{border-left:3px solid #1ABFAA;border-radius:0 14px 14px 0}
+
+.g1{display:grid;grid-template-columns:1fr;gap:16px}
+.g2{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:480px){.g2{grid-template-columns:1fr 1fr}}
+.g3{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:540px){.g3{grid-template-columns:1fr 1fr}}
+@media(min-width:768px){.g3{grid-template-columns:1fr 1fr 1fr}}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:540px){.g4{grid-template-columns:repeat(4,1fr)}}
+
+.stat-card{background:#0f1620;border:1px solid #1a2436;border-radius:12px;padding:20px;text-align:center}
+.stat-card .number{font-size:clamp(26px,6vw,36px);font-weight:800;color:#1ABFAA;line-height:1;margin-bottom:6px}
+.stat-card .stat-label{font-size:11px;color:#6b7a8f;text-transform:uppercase;letter-spacing:.07em}
+
+.problem-item{display:flex;gap:14px;align-items:flex-start;padding:16px;background:#0d1520;border:1px solid #1a2436;border-radius:12px}
+.problem-icon{width:34px;height:34px;background:#1ABFAA15;border:1px solid #1ABFAA30;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+
+.quote-block{background:#071a18;border:1px solid #1ABFAA30;border-radius:14px;padding:24px 28px;position:relative}
+.quote-block::before{content:'\201C';font-size:60px;font-weight:800;color:#1ABFAA25;position:absolute;top:-8px;left:16px;line-height:1}
+.quote-text{font-size:clamp(14px,3.5vw,17px);font-style:italic;color:#c0c8d8;line-height:1.7;position:relative;z-index:1}
+.quote-attr{margin-top:14px;font-size:12px;color:#6b7a8f}
+
+.persona-card{background:#0f1620;border:1px solid #1a2436;border-radius:14px;overflow:hidden}
+.persona-header{padding:18px 20px;background:#111820;display:flex;gap:14px;align-items:center}
+.persona-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0}
+.persona-body{padding:18px 20px}
+.pain-list{list-style:none}
+.pain-list li{padding:7px 0;border-bottom:1px solid #111820;font-size:13px;color:#8896a8;display:flex;gap:8px;align-items:flex-start}
+.pain-list li::before{content:'→';color:#1ABFAA;flex-shrink:0}
+.goal-badge{display:inline-block;background:#071a18;border:1px solid #1ABFAA30;color:#1ABFAA;font-size:11px;padding:3px 9px;border-radius:20px;margin:3px 3px 3px 0}
+
+.swatch{border-radius:9px;height:56px;margin-bottom:8px}
+.swatch-label{font-size:12px;font-weight:600;color:#e8eaf0}
+.swatch-hex{font-size:11px;color:#4a5568;font-family:'SF Mono',monospace}
+
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600}
+.s-morning{background:#071a18;color:#1ABFAA;border:1px solid #1ABFAA40}
+.s-evening{background:#0a1227;color:#4a90d9;border:1px solid #4a90d940}
+.s-night{background:#100a2a;color:#9b7ff0;border:1px solid #9b7ff040}
+.s-leave{background:#1a1200;color:#d9a63a;border:1px solid #d9a63a40}
+.s-off{background:#111820;color:#6b7a8f;border:1px solid #2a3848}
+.s-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+.annotation-card{background:#0f1620;border:1px solid #1a2436;border-radius:14px;overflow:hidden}
+.annotation-header{padding:16px 20px;border-bottom:1px solid #161d28;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%}
+.annotation-body{padding:20px}
+.annotation-point{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #111820;align-items:flex-start}
+.annotation-point:last-child{border-bottom:none}
+.ann-num{width:22px;height:22px;background:#1ABFAA;color:#0a2420;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+
+.journey-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:540px){.journey-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:768px){.journey-grid{grid-template-columns:repeat(5,1fr)}}
+.journey-stage{background:#0f1620;border:1px solid #1a2436;border-radius:12px;padding:14px}
+.journey-stage .stage-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1ABFAA;margin-bottom:7px}
+.journey-emotion{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid #161d28}
+.e-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+.flow-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(min-width:540px){.flow-wrap{display:flex;align-items:center;overflow-x:auto;padding-bottom:8px}}
+.flow-node{background:#0f1620;border:1px solid #1a2436;border-radius:9px;padding:10px 13px;font-size:12px;font-weight:500;text-align:center}
+.flow-node.dec{border-color:#1ABFAA40;background:#071a18;color:#1ABFAA}
+.flow-arrow{color:#2a3848;font-size:16px;padding:0 5px;flex-shrink:0;display:none}
+@media(min-width:540px){.flow-arrow{display:block}}
+
+.ia-node{background:#0f1620;border:1px solid #1a2436;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500;text-align:center}
+.ia-node.root{background:#071a18;border-color:#1ABFAA;color:#1ABFAA;font-weight:700}
+.ia-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.ia-connector{text-align:center;color:#2a3848;font-size:18px;line-height:1;margin:4px 0}
+
+.comp-demo{background:#111820;border-radius:12px;padding:18px}
+.btn-p{background:#1ABFAA;color:#0a2420;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer}
+.btn-o{background:transparent;color:#e8eaf0;border:1px solid #2a3848;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer}
+
+.ch-card{border-radius:12px;padding:18px}
+.ch-problem{background:#150d0d;border:1px solid #3a1818}
+.ch-solution{background:#061a14;border:1px solid #0d3a28}
+
+.result-item{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #111820;align-items:flex-start}
+.result-item:last-child{border-bottom:none}
+.result-icon{width:40px;height:40px;background:#071a18;border:1px solid #1ABFAA30;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+
+.divider{height:1px;background:#161d28;margin:32px 0}
+.gradient-text{background:linear-gradient(135deg,#1ABFAA 0%,#4a90d9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.sticky-nav{position:sticky;top:0;z-index:100;background:#0a0e14e6;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #161d28;padding:10px 0}
+.nav-inner{display:flex;gap:20px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-link{font-size:11px;font-weight:700;color:#4a5568;text-decoration:none;white-space:nowrap;cursor:pointer;transition:color .2s;letter-spacing:.05em;text-transform:uppercase}
+.nav-link:hover,.nav-link.active{color:#1ABFAA}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+
+.wf-screen{background:#111820;border:1px solid #1e2a38;border-radius:12px;padding:14px}
+.wf-bar{height:7px;background:#1e2a38;border-radius:4px;margin-bottom:7px}
+.wf-bar.ac{background:#1ABFAA30;width:60%}
+.wf-tile{background:#1a2436;border-radius:7px;padding:10px;margin-bottom:7px;display:flex;gap:8px;align-items:center}
+.wf-dot{width:28px;height:28px;border-radius:7px;background:#1ABFAA30;flex-shrink:0}
+.wf-lines{flex:1}
+.wf-line{height:6px;background:#2a3848;border-radius:3px;margin-bottom:4px}
+.wf-line.s{width:50%}
+
+.swatch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:480px){.swatch-grid{grid-template-columns:repeat(4,1fr)}}
+
+.challenge-pair{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px}
+@media(min-width:540px){.challenge-pair{grid-template-columns:1fr 1fr}}
+</style>
+
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a class="nav-link active" onclick="goTo('hero',event)">Overview</a>
+    <a class="nav-link" onclick="goTo('problem',event)">Problem</a>
+    <a class="nav-link" onclick="goTo('research',event)">Research</a>
+    <a class="nav-link" onclick="goTo('personas',event)">Personas</a>
+    <a class="nav-link" onclick="goTo('ia',event)">Architecture</a>
+    <a class="nav-link" onclick="goTo('designsys',event)">Design System</a>
+    <a class="nav-link" onclick="goTo('screens',event)">Screens</a>
+    <a class="nav-link" onclick="goTo('challenges',event)">Challenges</a>
+    <a class="nav-link" onclick="goTo('results',event)">Results</a>
+  </div>
+</nav>
+
+<div class="hero" id="hero">
+<div class="page">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow" style="margin-bottom:16px">Healthcare Workforce Management · 2024–2025</div>
+      <h1 class="display"><span class="gradient-text">Roster</span><br>Management<br>System</h1>
+      <p class="body-lg" style="margin-top:20px">A comprehensive end-to-end workforce scheduling platform designed for hospitals — replacing fragmented spreadsheet workflows with an intelligent, role-aware digital system.</p>
+      <div class="tag-row">
+        <span class="tag teal">UI/UX Design</span>
+        <span class="tag">Healthcare SaaS</span>
+        <span class="tag">Mobile-First</span>
+        <span class="tag">Design System</span>
+        <span class="tag">Enterprise</span>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-item"><div class="label">My Role</div><div class="value">Lead UI/UX Designer</div></div>
+        <div class="meta-item"><div class="label">Timeline</div><div class="value">8 Months</div></div>
+        <div class="meta-item"><div class="label">Platform</div><div class="value">iOS · Android · Web</div></div>
+        <div class="meta-item"><div class="label">Tools</div><div class="value">Figma · FigJam · Maze</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <div style="position:relative;max-width:220px;width:100%">
+        <div style="position:absolute;top:12px;right:-8px;background:#1ABFAA;color:#0a2420;font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.05em;z-index:2">✦ On Duty</div>
+        <div style="background:#111820;border:1px solid #1e2a38;border-radius:30px;padding:16px 12px;box-shadow:0 24px 48px #00000070">
+          <div style="width:48px;height:5px;background:#1e2a38;border-radius:3px;margin:0 auto 14px"></div>
+          <div style="background:linear-gradient(160deg,#0e5c58,#083d6b);border-radius:18px;padding:14px;margin-bottom:8px">
+            <div style="font-size:9px;color:#7ee8dc;margin-bottom:3px">Good morning</div>
+            <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:10px">Dr. Sara Reyes</div>
+            <div style="background:#1ABFAA30;border:1px solid #1ABFAA60;color:#7ee8dc;font-size:8px;font-weight:700;padding:2px 7px;border-radius:8px;display:inline-block;margin-bottom:7px">● ON DUTY</div>
+            <div style="font-size:8px;color:#a0ccc8;margin-bottom:2px">TODAY'S SHIFT</div>
+            <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:2px">Morning Rounds</div>
+            <div style="font-size:9px;color:#7ee8dc;margin-bottom:8px">07:00 — 15:00 · 8 hours</div>
+            <div style="display:flex;gap:6px;margin-bottom:8px">
+              <div style="background:#ffffff15;border-radius:7px;padding:5px 8px;flex:1"><div style="font-size:7px;color:#7ee8dc">DEPT</div><div style="font-size:9px;font-weight:700;color:#fff">Cardiology</div></div>
+              <div style="background:#ffffff15;border-radius:7px;padding:5px 8px;flex:1"><div style="font-size:7px;color:#7ee8dc">WARD</div><div style="font-size:9px;font-weight:700;color:#fff">Block B · 4F</div></div>
+            </div>
+            <div style="background:#1ABFAA;border-radius:9px;padding:7px;text-align:center;font-size:9px;font-weight:700;color:#0a2420">Clock out</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
+            <div style="background:#0f1620;border:1px solid #1e2a38;border-radius:9px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:800;color:#e8eaf0">12</div><div style="font-size:7px;color:#6b7a8f">days leave</div></div>
+            <div style="background:#0f1620;border:1px solid #1e2a38;border-radius:9px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:800;color:#e8eaf0">5</div><div style="font-size:7px;color:#6b7a8f">shifts</div></div>
+            <div style="background:#0f1620;border:1px solid #1e2a38;border-radius:9px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:800;color:#e8eaf0">2</div><div style="font-size:7px;color:#6b7a8f">pending</div></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:48px;left:-14px;background:#0f1620;border:1px solid #1a2436;color:#d9a63a;font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;z-index:2">📅 June 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<section id="context" style="background:#0d1218">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Project Context</span></div>
+  <h2 class="h1" style="margin-bottom:20px">Built for the people keeping hospitals alive</h2>
+  <p class="body-lg" style="margin-bottom:36px">Healthcare workforce management is one of the most complexity-dense domains in enterprise software. Every shift change carries patient safety implications. This system was designed to absorb that complexity — so nurses, supervisors, and HR managers don't have to.</p>
+  <div class="g4" style="margin-bottom:32px">
+    <div class="stat-card"><div class="number">4</div><div class="stat-label">User Roles</div></div>
+    <div class="stat-card"><div class="number">8</div><div class="stat-label">Core Modules</div></div>
+    <div class="stat-card"><div class="number">60+</div><div class="stat-label">Screens</div></div>
+    <div class="stat-card"><div class="number">3</div><div class="stat-label">Shift Types</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="g2">
+    <div>
+      <div class="h3" style="margin-bottom:12px">My responsibilities</div>
+      <p class="body">As the sole UI/UX designer, I owned the full design process from discovery through developer handoff — user interviews, IA, wireframes, high-fidelity screens, component library, and annotated Figma handoff files.</p>
+    </div>
+    <div>
+      <div class="h3" style="margin-bottom:12px">Project scope</div>
+      <p class="body">Four distinct user types — staff nurses, supervisors, HR managers, and system administrators — each with different access levels, workflows, and mental models. Designing role-based access with a coherent visual language was the central challenge.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="problem">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Problem Statement</span></div>
+  <h2 class="h1" style="margin-bottom:14px">The system that wasn't a system</h2>
+  <p class="body-lg" style="margin-bottom:36px">Healthcare scheduling in most mid-sized hospitals still runs on Excel spreadsheets, WhatsApp group chats, and paper shift boards. The inefficiency is staggering — and the human cost is real.</p>
+  <div class="quote-block" style="margin-bottom:36px">
+    <p class="quote-text">"I spend three hours every Sunday rebuilding next week's roster. Every time someone calls in sick, I have to manually check who's available, text multiple nurses, and hope someone replies before the shift starts."</p>
+    <div class="quote-attr">— Senior Ward Supervisor, discovery interview</div>
+  </div>
+  <div class="g2" style="margin-bottom:36px">
+    <div class="problem-item"><div class="problem-icon">📋</div><div><div class="h4" style="margin-bottom:5px">Manual roster building</div><p class="body" style="font-size:13px">Supervisors spend 3–5 hours weekly constructing schedules with no automated conflict detection or coverage validation.</p></div></div>
+    <div class="problem-item"><div class="problem-icon">⚔️</div><div><div class="h4" style="margin-bottom:5px">Shift conflicts & double-booking</div><p class="body" style="font-size:13px">Without a centralised system, nurses are routinely scheduled for overlapping shifts, leading to burnout and understaffed wards.</p></div></div>
+    <div class="problem-item"><div class="problem-icon">🗂️</div><div><div class="h4" style="margin-bottom:5px">Fragmented leave tracking</div><p class="body" style="font-size:13px">Leave requests via WhatsApp. No audit trail, no balance visibility, approvals handled through text messages.</p></div></div>
+    <div class="problem-item"><div class="problem-icon">👁️</div><div><div class="h4" style="margin-bottom:5px">No workforce visibility</div><p class="body" style="font-size:13px">HR managers had zero real-time visibility into department coverage, making budget planning and compliance reporting nearly impossible.</p></div></div>
+    <div class="problem-item"><div class="problem-icon">🔔</div><div><div class="h4" style="margin-bottom:5px">Zero proactive notification</div><p class="body" style="font-size:13px">Staff learned about schedule changes through informal channels. Shift updates were regularly missed.</p></div></div>
+    <div class="problem-item"><div class="problem-icon">🔄</div><div><div class="h4" style="margin-bottom:5px">No shift swap mechanism</div><p class="body" style="font-size:13px">Every swap required full supervisor mediation, creating a bottleneck that discouraged flexible scheduling.</p></div></div>
+  </div>
+  <div class="card card-accent">
+    <div class="h3" style="margin-bottom:12px">Design challenge</div>
+    <p class="body-lg">How do we design a role-aware workforce management platform that reduces administrative overhead by 60%, gives all stakeholders real-time visibility, and is intuitive enough for clinical staff who have never used scheduling software before?</p>
+  </div>
+</div>
+</section>
+
+<section id="goals" style="background:#0d1218">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Business Goals</span></div>
+  <h2 class="h1" style="margin-bottom:32px">What success looks like</h2>
+  <div class="g3">
+    <div class="card" style="border-top:2px solid #1ABFAA">
+      <div class="eyebrow" style="margin-bottom:10px">Operational</div>
+      <div class="h3" style="margin-bottom:10px">Reduce scheduling time</div>
+      <p class="body">Cut roster prep from 3–5 hours to under 30 minutes through automated conflict detection and intelligent recommendations.</p>
+    </div>
+    <div class="card" style="border-top:2px solid #4a90d9">
+      <div class="eyebrow" style="margin-bottom:10px;color:#4a90d9">Compliance</div>
+      <div class="h3" style="margin-bottom:10px">Audit-ready records</div>
+      <p class="body">Create an immutable, timestamped record of all scheduling decisions, leave approvals, and attendance data.</p>
+    </div>
+    <div class="card" style="border-top:2px solid #9b7ff0">
+      <div class="eyebrow" style="margin-bottom:10px;color:#9b7ff0">Staff Experience</div>
+      <div class="h3" style="margin-bottom:10px">Self-service empowerment</div>
+      <p class="body">Give nursing staff visibility into schedules, leave balances, and the ability to request swaps without full supervisor mediation.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="research">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">User Research</span></div>
+  <h2 class="h1" style="margin-bottom:14px">Listening before designing</h2>
+  <p class="body-lg" style="margin-bottom:36px">Two weeks embedded in research — interviewing clinical staff, shadowing shift handovers, and auditing existing scheduling artifacts — before opening Figma.</p>
+  <div class="g2" style="margin-bottom:36px">
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:14px">Research methods</div>
+      <div class="result-item" style="padding:10px 0">
+        <div class="result-icon" style="font-size:15px">🎤</div>
+        <div><div class="h4" style="margin-bottom:3px">Semi-structured interviews</div><p class="body" style="font-size:13px">12 participants across 4 roles, 45–60 min each. Goal: surface mental models and workflow breakpoints.</p></div>
+      </div>
+      <div class="result-item" style="padding:10px 0">
+        <div class="result-icon" style="font-size:15px">👁️</div>
+        <div><div class="h4" style="margin-bottom:3px">Contextual observation</div><p class="body" style="font-size:13px">Shadowed 3 supervisors through Monday morning roster-building. Documented every tool opened.</p></div>
+      </div>
+      <div class="result-item" style="padding:10px 0">
+        <div class="result-icon" style="font-size:15px">📊</div>
+        <div><div class="h4" style="margin-bottom:3px">Survey validation</div><p class="body" style="font-size:13px">48 responses from nursing staff across two departments to quantify pain points.</p></div>
+      </div>
+    </div>
+    <div class="g1">
+      <div class="card"><div class="eyebrow" style="margin-bottom:10px">Key finding 01</div><p class="body"><strong style="color:#e8eaf0">78% of nurses</strong> checked their schedule via WhatsApp screenshots rather than any official source.</p></div>
+      <div class="card"><div class="eyebrow" style="margin-bottom:10px">Key finding 02</div><p class="body"><strong style="color:#e8eaf0">Supervisors lost 4.2 hours</strong> per week on scheduling-related communication — not scheduling itself.</p></div>
+      <div class="card"><div class="eyebrow" style="margin-bottom:10px">Key finding 03</div><p class="body"><strong style="color:#e8eaf0">100% of HR managers</strong> couldn't generate a staffing report without 2 days of manual data collection.</p></div>
+    </div>
+  </div>
+  <div class="h3" style="margin-bottom:18px">Core user pain points</div>
+  <div class="g3">
+    <div style="background:#0f1620;border:1px solid #1a2436;border-radius:12px;padding:18px"><div style="font-size:22px;margin-bottom:10px">😩</div><div class="h4" style="margin-bottom:7px">Cognitive overload</div><p class="body" style="font-size:13px">Supervisors tracking availability, skill mix, holiday entitlements, and departmental policies simultaneously — all in their heads.</p></div>
+    <div style="background:#0f1620;border:1px solid #1a2436;border-radius:12px;padding:18px"><div style="font-size:22px;margin-bottom:10px">🌀</div><div class="h4" style="margin-bottom:7px">Invisible workload</div><p class="body" style="font-size:13px">Neither nurses nor HR could see how work was distributed. Burnout was chronic but impossible to flag through data.</p></div>
+    <div style="background:#0f1620;border:1px solid #1a2436;border-radius:12px;padding:18px"><div style="font-size:22px;margin-bottom:10px">⏱️</div><div class="h4" style="margin-bottom:7px">Reactive, not proactive</div><p class="body" style="font-size:13px">Every scheduling decision was a reaction to a crisis — sick calls, no-shows — rather than a planned, balanced allocation.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="personas" style="background:#0d1218">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">User Personas</span></div>
+  <h2 class="h1" style="margin-bottom:14px">Who we're designing for</h2>
+  <p class="body-lg" style="margin-bottom:36px">Four distinct roles. Four different relationships with the same system. The design had to serve all of them without creating a permission-gated maze.</p>
+  <div class="g2">
+    <div class="persona-card reveal">
+      <div class="persona-header"><div class="persona-avatar" style="background:#071a18;color:#1ABFAA">SR</div><div><div class="h4">Dr. Sara Reyes</div><div class="caption" style="color:#6b7a8f">Staff Nurse · Cardiology · 7 yrs</div></div></div>
+      <div class="persona-body"><p class="body" style="font-size:13px;margin-bottom:14px">Works rotating shifts. Needs to plan personal life around her schedule and resents chasing supervisors for basic schedule information.</p><div class="h4" style="margin-bottom:7px">Pain points</div><ul class="pain-list"><li>Finds out about changes through informal channels</li><li>Can't view leave balance without asking HR</li><li>Swap process takes days and multiple messages</li></ul><div style="margin-top:14px"><span class="goal-badge">See my schedule</span><span class="goal-badge">Request leave</span><span class="goal-badge">Swap shifts fast</span></div></div>
+    </div>
+    <div class="persona-card reveal">
+      <div class="persona-header"><div class="persona-avatar" style="background:#0a1227;color:#4a90d9">MK</div><div><div class="h4">Mohammed Khalid</div><div class="caption" style="color:#6b7a8f">Ward Supervisor · Emergency · 12 yrs</div></div></div>
+      <div class="persona-body"><p class="body" style="font-size:13px;margin-bottom:14px">Manages 22 nurses across three shift types. Building the weekly roster is his most stressful task — bleeds into personal time every weekend.</p><div class="h4" style="margin-bottom:7px">Pain points</div><ul class="pain-list"><li>Rebuilds next week's roster every Sunday</li><li>No automated conflict or understaffing alerts</li><li>Leave approvals require navigating multiple tools</li></ul><div style="margin-top:14px"><span class="goal-badge" style="border-color:#4a90d940;color:#4a90d9">Draft rosters fast</span><span class="goal-badge" style="border-color:#4a90d940;color:#4a90d9">Spot gaps instantly</span></div></div>
+    </div>
+    <div class="persona-card reveal">
+      <div class="persona-header"><div class="persona-avatar" style="background:#100a2a;color:#9b7ff0">PN</div><div><div class="h4">Priya Nair</div><div class="caption" style="color:#6b7a8f">HR Manager · Corporate · 9 yrs</div></div></div>
+      <div class="persona-body"><p class="body" style="font-size:13px;margin-bottom:14px">Responsible for workforce compliance, payroll integration, and headcount reporting. Needs data she can trust.</p><div class="h4" style="margin-bottom:7px">Pain points</div><ul class="pain-list"><li>Payroll data reconstructed manually each month</li><li>No single source of truth for leave balances</li><li>Compliance audits require days of collection</li></ul><div style="margin-top:14px"><span class="goal-badge" style="border-color:#9b7ff040;color:#9b7ff0">Live reports</span><span class="goal-badge" style="border-color:#9b7ff040;color:#9b7ff0">Audit trail</span></div></div>
+    </div>
+    <div class="persona-card reveal">
+      <div class="persona-header"><div class="persona-avatar" style="background:#1a1200;color:#d9a63a">AH</div><div><div class="h4">Ahmed Hassan</div><div class="caption" style="color:#6b7a8f">System Admin · IT Department</div></div></div>
+      <div class="persona-body"><p class="body" style="font-size:13px;margin-bottom:14px">Manages user onboarding, role assignments, and department configurations. Needs admin tools that don't require developer intervention.</p><div class="h4" style="margin-bottom:7px">Pain points</div><ul class="pain-list"><li>Permission updates require direct database access</li><li>No UI for department-specific shift rules</li><li>Audit logs scattered across server files</li></ul><div style="margin-top:14px"><span class="goal-badge" style="border-color:#d9a63a40;color:#d9a63a">Role management</span><span class="goal-badge" style="border-color:#d9a63a40;color:#d9a63a">Config control</span></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="journey">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">User Journey Map</span></div>
+  <h2 class="h1" style="margin-bottom:14px">The supervisor's Monday morning</h2>
+  <p class="body-lg" style="margin-bottom:32px">Mapping Mohammed's journey through weekly roster creation revealed the precise moments where the system broke down — and where our design had the highest opportunity to intervene.</p>
+  <div class="journey-grid">
+    <div class="journey-stage"><div class="stage-name">Trigger</div><p class="body" style="font-size:13px">Sunday 3pm. Opens WhatsApp to remind himself of last week's gaps and staff requests.</p><div class="journey-emotion"><div class="e-dot" style="background:#d9a63a"></div><span class="caption">Neutral / reluctant</span></div></div>
+    <div class="journey-stage"><div class="stage-name">Data collection</div><p class="body" style="font-size:13px">Opens Excel roster, cross-references leave in email, calls nurses to confirm availability.</p><div class="journey-emotion"><div class="e-dot" style="background:#e55a4e"></div><span class="caption">Frustrated</span></div></div>
+    <div class="journey-stage"><div class="stage-name">Drafting</div><p class="body" style="font-size:13px">Manually fills the week's grid. Discovers a Thursday night gap — texts 3 nurses hoping for a reply.</p><div class="journey-emotion"><div class="e-dot" style="background:#e55a4e"></div><span class="caption">High cognitive load</span></div></div>
+    <div class="journey-stage"><div class="stage-name">Distribution</div><p class="body" style="font-size:13px">Screenshots the Excel sheet and posts to WhatsApp group. Three people can't read it properly.</p><div class="journey-emotion"><div class="e-dot" style="background:#c0392b"></div><span class="caption">Defeated</span></div></div>
+    <div class="journey-stage"><div class="stage-name">Monday chaos</div><p class="body" style="font-size:13px">Two nurses arrive for the wrong shift. First 40 minutes of his workday fixing it.</p><div class="journey-emotion"><div class="e-dot" style="background:#c0392b"></div><span class="caption">Crisis mode</span></div></div>
+  </div>
+  <div style="margin-top:20px;padding:14px 18px;background:#071a18;border:1px solid #1ABFAA30;border-radius:10px">
+    <p class="body" style="font-size:13px">📍 <strong style="color:#1ABFAA">Design opportunity:</strong> Every stage above is either an information gap, a communication failure, or a missing automation opportunity. Our system targets all five.</p>
+  </div>
+</div>
+</section>
+
+<section id="ia" style="background:#0d1218">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Information Architecture</span></div>
+  <h2 class="h1" style="margin-bottom:14px">Structure before screens</h2>
+  <p class="body-lg" style="margin-bottom:32px">With four user roles and eight core modules, the navigation architecture required careful attention. Every module needed to feel accessible from primary nav without deep menu hierarchies.</p>
+  <div style="background:#0f1620;border:1px solid #1a2436;border-radius:16px;padding:24px;margin-bottom:32px">
+    <div style="text-align:center;margin-bottom:12px"><div class="ia-node root" style="display:inline-block;padding:12px 24px;font-size:14px">Roster Management System</div></div>
+    <div class="ia-connector">│</div>
+    <div class="ia-row" style="margin-bottom:12px;gap:6px">
+      <div class="ia-node" style="color:#1ABFAA;border-color:#1ABFAA40;font-size:11px">Home</div>
+      <div class="ia-node" style="color:#4a90d9;border-color:#4a90d940;font-size:11px">Calendar</div>
+      <div class="ia-node" style="color:#9b7ff0;border-color:#9b7ff040;font-size:11px">Leave</div>
+      <div class="ia-node" style="color:#d9a63a;border-color:#d9a63a40;font-size:11px">Alerts</div>
+      <div class="ia-node" style="font-size:11px">Profile</div>
+    </div>
+    <div class="ia-connector">│</div>
+    <div class="ia-row" style="flex-wrap:wrap;gap:6px;margin-bottom:12px">
+      <div class="ia-node" style="font-size:11px">Today's shift</div>
+      <div class="ia-node" style="font-size:11px">Shift calendar</div>
+      <div class="ia-node" style="font-size:11px">Request leave</div>
+      <div class="ia-node" style="font-size:11px">Leave balance</div>
+      <div class="ia-node" style="font-size:11px">Swap requests</div>
+      <div class="ia-node" style="font-size:11px">Activity feed</div>
+    </div>
+    <div class="ia-connector">│</div>
+    <div style="background:#071a18;border:1px dashed #1ABFAA30;border-radius:10px;padding:14px;margin-top:8px">
+      <div class="caption" style="color:#1ABFAA;margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em">Supervisor + HR + Admin views</div>
+      <div class="ia-row" style="flex-wrap:wrap;gap:6px">
+        <div class="ia-node" style="font-size:11px">Roster builder</div>
+        <div class="ia-node" style="font-size:11px">Staff directory</div>
+        <div class="ia-node" style="font-size:11px">Leave approval queue</div>
+        <div class="ia-node" style="font-size:11px">Reports & analytics</div>
+        <div class="ia-node" style="font-size:11px">Attendance tracking</div>
+        <div class="ia-node" style="font-size:11px">Settings & config</div>
+      </div>
+    </div>
+  </div>
+  <div class="h3" style="margin-bottom:16px">User flow: shift swap request</div>
+  <div class="flow-wrap">
+    <div class="flow-node">View my shift</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">Tap "Request swap"</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node dec">Select colleague</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">Submit request</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">Supervisor notified</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node dec">Approved?</div>
+  </div>
+</div>
+</section>
+
+<section id="designsys">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Design System</span></div>
+  <h2 class="h1" style="margin-bottom:14px">One language, every screen</h2>
+  <p class="body-lg" style="max-width:600px;margin-bottom:36px">Built on three principles: immediate legibility in variable clinical lighting, accessible contrast at all interaction states, and a semantic color language that carries meaning without requiring text labels.</p>
+
+  <div class="h3" style="margin-bottom:16px">Color system</div>
+  <div class="swatch-grid" style="margin-bottom:36px">
+    <div><div class="swatch" style="background:#1ABFAA"></div><div class="swatch-label">Primary Teal</div><div class="swatch-hex">#1ABFAA</div><div class="caption" style="margin-top:3px">Actions, CTAs, active states</div></div>
+    <div><div class="swatch" style="background:#0E2C5E"></div><div class="swatch-label">Navy Deep</div><div class="swatch-hex">#0E2C5E</div><div class="caption" style="margin-top:3px">Headers, emphasis elements</div></div>
+    <div><div class="swatch" style="background:#4a90d9"></div><div class="swatch-label">Blue Mid</div><div class="swatch-hex">#4A90D9</div><div class="caption" style="margin-top:3px">Evening shift indicator</div></div>
+    <div><div class="swatch" style="background:#9b7ff0"></div><div class="swatch-label">Violet</div><div class="swatch-hex">#9B7FF0</div><div class="caption" style="margin-top:3px">Night shift indicator</div></div>
+    <div><div class="swatch" style="background:#d9a63a"></div><div class="swatch-label">Amber</div><div class="swatch-hex">#D9A63A</div><div class="caption" style="margin-top:3px">Leave / pending states</div></div>
+    <div><div class="swatch" style="background:#e55a4e"></div><div class="swatch-label">Coral Red</div><div class="swatch-hex">#E55A4E</div><div class="caption" style="margin-top:3px">Alerts, conflicts, errors</div></div>
+    <div><div class="swatch" style="background:#f8f9fa"></div><div class="swatch-label">Surface Light</div><div class="swatch-hex">#F8F9FA</div><div class="caption" style="margin-top:3px">App background (light)</div></div>
+    <div><div class="swatch" style="background:#6b7a8f"></div><div class="swatch-label">Gray Mid</div><div class="swatch-hex">#6B7A8F</div><div class="caption" style="margin-top:3px">Secondary text, off states</div></div>
+  </div>
+
+  <div class="h3" style="margin-bottom:14px">Shift type status system</div>
+  <p class="body" style="margin-bottom:16px">Every shift type distinguishable at a glance — in the calendar and in list contexts — through a consistent semantic color language used across every screen.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px">
+    <span class="status-badge s-morning"><span class="s-dot"></span>Morning</span>
+    <span class="status-badge s-evening"><span class="s-dot"></span>Evening</span>
+    <span class="status-badge s-night"><span class="s-dot"></span>Night</span>
+    <span class="status-badge s-leave"><span class="s-dot"></span>Leave</span>
+    <span class="status-badge s-off"><span class="s-dot"></span>Off</span>
+  </div>
+
+  <div class="h3" style="margin-bottom:14px">Typography scale</div>
+  <div class="comp-demo" style="margin-bottom:32px">
+    <div style="font-size:clamp(22px,5vw,30px);font-weight:800;color:#0f1a2e;line-height:1.1;margin-bottom:10px">Dashboard · 30/800</div>
+    <div style="font-size:clamp(17px,4vw,22px);font-weight:700;color:#0f1a2e;line-height:1.2;margin-bottom:10px">Morning Rounds · 22/700</div>
+    <div style="font-size:16px;font-weight:600;color:#1a2e44;margin-bottom:10px">Cardiology · Block B · 4F · 16/600</div>
+    <div style="font-size:14px;color:#4a5568;margin-bottom:10px">07:00 — 15:00 · 8 hours · Body text 14/400</div>
+    <div style="font-size:11px;color:#8896a8;text-transform:uppercase;letter-spacing:.1em">DEPARTMENT · WARD · SHIFT TYPE · Caption 11</div>
+  </div>
+
+  <div class="h3" style="margin-bottom:16px">Core components</div>
+  <div class="g2">
+    <div class="comp-demo">
+      <div class="caption" style="margin-bottom:12px;text-transform:uppercase;letter-spacing:.07em">Buttons</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-p">Clock out</button>
+        <button class="btn-o">Request swap</button>
+      </div>
+    </div>
+    <div class="comp-demo">
+      <div class="caption" style="margin-bottom:12px;text-transform:uppercase;letter-spacing:.07em">Shift detail card</div>
+      <div style="background:#fff;border-radius:11px;padding:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#0f1a2e">Jun 16, 2026</div>
+          <span class="status-badge s-night" style="font-size:11px"><span class="s-dot"></span>Night</span>
+        </div>
+        <div style="font-size:12px;color:#4a5568;margin-bottom:3px">🕐 23:00 — 07:00</div>
+        <div style="font-size:12px;color:#4a5568;margin-bottom:3px">🏥 <strong style="color:#0f1a2e">Cardiology</strong></div>
+        <div style="font-size:12px;color:#4a5568">📍 <strong style="color:#0f1a2e">Block B · 4F</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="wireframes" style="background:#0d1218">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Wireframes</span></div>
+  <h2 class="h1" style="margin-bottom:14px">Structure before style</h2>
+  <p class="body-lg" style="margin-bottom:32px">Built in low fidelity first, tested with 5 participants using paper prototypes, then refined before moving to high fidelity. Two key decisions validated at this stage:</p>
+  <div class="g2">
+    <div>
+      <div class="card card-accent" style="margin-bottom:14px">
+        <div class="h4" style="margin-bottom:7px">Decision: Bottom tab navigation</div>
+        <p class="body" style="font-size:13px">Tested hamburger menu vs. bottom tabs. Bottom tabs won — clinical staff use phones with gloves on and need large, predictable touch targets. Home · Calendar · Leave · Alerts · Profile maps to the five most common tasks.</p>
+      </div>
+      <div class="card card-accent">
+        <div class="h4" style="margin-bottom:7px">Decision: Today-first home screen</div>
+        <p class="body" style="font-size:13px">Tested agenda-first vs. status-first vs. today-first layouts. Staff consistently wanted to know "what is my shift right now?" first. Today's shift became the dominant hero element.</p>
+      </div>
+    </div>
+    <div>
+      <div class="wf-screen">
+        <div style="background:#1e2a38;border-radius:8px;padding:10px;margin-bottom:7px">
+          <div style="display:flex;gap:7px;margin-bottom:9px">
+            <div style="width:30px;height:30px;border-radius:50%;background:#2a3848;flex-shrink:0"></div>
+            <div style="flex:1"><div class="wf-line" style="width:70px;margin-bottom:5px"></div><div class="wf-line s"></div></div>
+          </div>
+          <div style="background:#1a2436;border-radius:7px;padding:10px">
+            <div class="wf-bar ac"></div>
+            <div class="wf-bar" style="width:40%;height:18px;background:#2a3848;border-radius:5px;margin-bottom:7px"></div>
+            <div class="wf-line s"></div>
+            <div style="display:flex;gap:5px;margin-top:7px">
+              <div style="flex:1;height:24px;background:#1ABFAA30;border-radius:5px"></div>
+              <div style="width:24px;height:24px;background:#2a3848;border-radius:5px"></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:5px;margin-bottom:6px">
+          <div class="wf-tile" style="flex:1;margin-bottom:0"><div class="wf-dot"></div><div class="wf-lines"><div class="wf-line"></div><div class="wf-line s"></div></div></div>
+          <div class="wf-tile" style="flex:1;margin-bottom:0"><div class="wf-dot" style="background:#4a90d930"></div><div class="wf-lines"><div class="wf-line"></div><div class="wf-line s"></div></div></div>
+        </div>
+        <div class="wf-tile"><div class="wf-dot" style="background:#d9a63a30"></div><div class="wf-lines"><div class="wf-line"></div><div class="wf-line s"></div></div></div>
+      </div>
+      <div class="caption" style="text-align:center;margin-top:10px">Low-fi wireframe: Home screen — Today-first layout</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="screens">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Final Solution</span></div>
+  <h2 class="h1" style="margin-bottom:14px">Every screen, explained</h2>
+  <p class="body-lg" style="margin-bottom:40px">Purpose, UX decisions, and business rationale behind each key screen in the final design system.</p>
+
+  <div class="annotation-card reveal" style="margin-bottom:32px">
+    <div class="annotation-header">
+      <div class="dot" style="background:#e55a4e"></div><div class="dot" style="background:#d9a63a"></div><div class="dot" style="background:#1ABFAA"></div>
+      <div class="h4" style="margin-left:7px">Screen 01 — Home Dashboard</div>
+      <div style="margin-left:auto"><span class="tag teal">Staff View</span></div>
+    </div>
+    <div class="annotation-body">
+      <div style="background:#e8edf5;border-radius:14px;padding:16px;margin-bottom:18px;max-width:260px;margin-left:auto;margin-right:auto">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1ABFAA,#0E6B8C);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px">SR</div>
+          <div><div style="font-size:10px;color:#6b7a8f">Good morning</div><div style="font-size:13px;font-weight:700;color:#0f1a2e">Dr. Sara Reyes</div></div>
+        </div>
+        <div style="background:linear-gradient(160deg,#0e5c58,#083d6b);border-radius:13px;padding:14px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+            <div style="background:#1ABFAA30;border:1px solid #1ABFAA60;color:#7ee8dc;font-size:8px;font-weight:700;padding:2px 7px;border-radius:7px">● ON DUTY</div>
+            <div style="color:#7ee8dc;font-size:9px">Tue, Jun 16</div>
+          </div>
+          <div style="color:#a0ccc8;font-size:8px;margin-bottom:2px">TODAY'S SHIFT</div>
+          <div style="color:#fff;font-size:16px;font-weight:800;margin-bottom:2px">Morning Rounds</div>
+          <div style="color:#7ee8dc;font-size:9px;margin-bottom:8px">07:00 — 15:00 · 8 hours</div>
+          <div style="display:flex;gap:6px;margin-bottom:8px">
+            <div style="background:#ffffff15;border-radius:7px;padding:5px 8px;flex:1"><div style="font-size:7px;color:#7ee8dc">DEPT</div><div style="font-size:9px;font-weight:700;color:#fff">Cardiology</div></div>
+            <div style="background:#ffffff15;border-radius:7px;padding:5px 8px;flex:1"><div style="font-size:7px;color:#7ee8dc">WARD</div><div style="font-size:9px;font-weight:700;color:#fff">Block B · 4F</div></div>
+          </div>
+          <div style="background:#1ABFAA;border-radius:9px;padding:7px;text-align:center;font-size:9px;font-weight:700;color:#0a2420">Clock out</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+          <div style="background:#fff;border-radius:9px;padding:8px;text-align:center"><div style="font-size:15px;font-weight:800;color:#0f1a2e">12</div><div style="font-size:8px;color:#6b7a8f">days leave</div></div>
+          <div style="background:#fff;border-radius:9px;padding:8px;text-align:center"><div style="font-size:15px;font-weight:800;color:#0f1a2e">5</div><div style="font-size:8px;color:#6b7a8f">shifts</div></div>
+          <div style="background:#fff;border-radius:9px;padding:8px;text-align:center"><div style="font-size:15px;font-weight:800;color:#0f1a2e">2</div><div style="font-size:8px;color:#6b7a8f">pending</div></div>
+        </div>
+      </div>
+      <div class="annotation-point"><div class="ann-num">1</div><div><strong style="color:#e8eaf0;font-size:13px">Duty status hero card</strong><p class="body" style="font-size:13px;margin-top:3px">Gradient card dominates to instantly communicate duty status. Color shifts to muted palette when user is off duty — answering the most frequent question nurses had without any interaction.</p></div></div>
+      <div class="annotation-point"><div class="ann-num">2</div><div><strong style="color:#e8eaf0;font-size:13px">Inline clock-out CTA</strong><p class="body" style="font-size:13px;margin-top:3px">Clock-out lives inside the shift card, not a separate module. Reduces friction for the most time-sensitive action, preventing missed clock-outs that cause payroll errors.</p></div></div>
+      <div class="annotation-point"><div class="ann-num">3</div><div><strong style="color:#e8eaf0;font-size:13px">Tri-stat summary row</strong><p class="body" style="font-size:13px;margin-top:3px">Leave balance, upcoming shifts, and pending requests are visible on load — the three metrics nurses checked most frequently per research. Zero navigation required.</p></div></div>
+      <div style="padding:12px 16px;background:#071a18;border:1px solid #1ABFAA20;border-radius:9px;margin-top:8px"><span class="caption" style="color:#1ABFAA;text-transform:uppercase;letter-spacing:.07em">Business value · </span><span class="body" style="font-size:13px">Reduces "what am I doing today?" queries to supervisors by an estimated 40%. Clock-out compliance improves payroll accuracy directly.</span></div>
+    </div>
+  </div>
+
+  <div class="annotation-card reveal" style="margin-bottom:32px">
+    <div class="annotation-header">
+      <div class="dot" style="background:#e55a4e"></div><div class="dot" style="background:#d9a63a"></div><div class="dot" style="background:#1ABFAA"></div>
+      <div class="h4" style="margin-left:7px">Screen 02 — Shift Calendar</div>
+      <div style="margin-left:auto"><span class="tag teal">Staff + Supervisor</span></div>
+    </div>
+    <div class="annotation-body">
+      <div style="background:#f8f9fa;border-radius:14px;padding:16px;margin-bottom:18px;max-width:260px;margin-left:auto;margin-right:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div style="font-size:13px;font-weight:700;color:#0f1a2e">June 2026</div>
+          <div style="display:flex;gap:10px"><span style="color:#6b7a8f;font-size:14px">‹</span><span style="color:#6b7a8f;font-size:14px">›</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:10px">
+          <div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">M</div><div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">T</div><div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">W</div><div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">T</div><div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">F</div><div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">S</div><div style="font-size:8px;color:#9ba8bb;text-align:center;font-weight:600">S</div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">1</div><div style="height:2px;border-radius:2px;background:#1ABFAA;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">2</div><div style="height:2px;border-radius:2px;background:#4a90d9;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">3</div><div style="height:2px;border-radius:2px;background:#9b7ff0;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">4</div><div style="height:2px;border-radius:2px;background:#e8e8e8;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">5</div><div style="height:2px;border-radius:2px;background:#e8e8e8;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#6b7a8f">6</div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#6b7a8f">7</div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">15</div><div style="height:2px;border-radius:2px;background:#1ABFAA;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:2px 1px"><div style="width:22px;height:22px;border-radius:50%;background:#1ABFAA;display:flex;align-items:center;justify-content:center;margin:0 auto"><div style="font-size:10px;color:#fff;font-weight:700">16</div></div><div style="height:2px;border-radius:2px;background:#1ABFAA;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">17</div><div style="height:2px;border-radius:2px;background:#4a90d9;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">18</div><div style="height:2px;border-radius:2px;background:#9b7ff0;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">19</div><div style="height:2px;border-radius:2px;background:#1ABFAA;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#6b7a8f">20</div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#6b7a8f">21</div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">29</div><div style="height:2px;border-radius:2px;background:#d9a63a;margin-top:2px"></div></div>
+          <div style="text-align:center;padding:4px 1px"><div style="font-size:10px;color:#0f1a2e;font-weight:500">30</div><div style="height:2px;border-radius:2px;background:#d9a63a;margin-top:2px"></div></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:3px"><div style="width:7px;height:7px;border-radius:50%;background:#1ABFAA"></div><span style="font-size:9px;color:#4a5568">Morning</span></div>
+          <div style="display:flex;align-items:center;gap:3px"><div style="width:7px;height:7px;border-radius:50%;background:#4a90d9"></div><span style="font-size:9px;color:#4a5568">Evening</span></div>
+          <div style="display:flex;align-items:center;gap:3px"><div style="width:7px;height:7px;border-radius:50%;background:#9b7ff0"></div><span style="font-size:9px;color:#4a5568">Night</span></div>
+          <div style="display:flex;align-items:center;gap:3px"><div style="width:7px;height:7px;border-radius:50%;background:#d9a63a"></div><span style="font-size:9px;color:#4a5568">Leave</span></div>
+        </div>
+        <div style="background:#fff;border-radius:11px;padding:11px;border:1px solid #e8edf5">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-size:12px;font-weight:700;color:#0f1a2e">Jun 16, 2026</div>
+            <span class="status-badge s-night" style="font-size:9px"><span class="s-dot"></span>Night</span>
+          </div>
+          <div style="font-size:11px;color:#4a5568;margin-bottom:3px">🕐 23:00 — 07:00</div>
+          <div style="font-size:11px;color:#4a5568;margin-bottom:3px">🏥 <strong style="color:#0f1a2e">Cardiology</strong></div>
+          <div style="font-size:11px;color:#4a5568;margin-bottom:10px">📍 <strong style="color:#0f1a2e">Block B · 4F</strong></div>
+          <div style="display:flex;gap:6px">
+            <button style="flex:1;background:#f0f4f8;border:none;border-radius:7px;padding:7px;font-size:10px;font-weight:600;color:#4a5568;cursor:pointer">Request swap</button>
+            <button style="flex:1;background:#1ABFAA;border:none;border-radius:7px;padding:7px;font-size:10px;font-weight:700;color:#0a2420;cursor:pointer">View details</button>
+          </div>
+        </div>
+      </div>
+      <div class="annotation-point"><div class="ann-num">1</div><div><strong style="color:#e8eaf0;font-size:13px">Colour-encoded calendar dots</strong><p class="body" style="font-size:13px;margin-top:3px">3px underline bars per date cell use the shift-type color. Scans faster than text labels and works at small sizes. Active date uses filled circle to prevent confusion with today's date.</p></div></div>
+      <div class="annotation-point"><div class="ann-num">2</div><div><strong style="color:#e8eaf0;font-size:13px">Tap-to-reveal shift detail</strong><p class="body" style="font-size:13px;margin-top:3px">Tapping any date reveals a contextual detail panel below the calendar — no modal, no navigation. Keeps the user anchored in the calendar while seeing shift details.</p></div></div>
+      <div class="annotation-point"><div class="ann-num">3</div><div><strong style="color:#e8eaf0;font-size:13px">Month-level shift summary</strong><p class="body" style="font-size:13px;margin-top:3px">Below the calendar: total shifts by type (8 Morning / 8 Evening / 4 Night / 10 Off). Instant workload overview without a separate report screen.</p></div></div>
+      <div style="padding:12px 16px;background:#071a18;border:1px solid #1ABFAA20;border-radius:9px;margin-top:8px"><span class="caption" style="color:#1ABFAA;text-transform:uppercase;letter-spacing:.07em">Business value · </span><span class="body" style="font-size:13px">Self-service schedule visibility eliminates the most common supervisor interruption — "can you send me my schedule?" — consuming an estimated 45 minutes per supervisor per week.</span></div>
+    </div>
+  </div>
+
+  <div class="h3" style="margin-bottom:18px">Additional key screens</div>
+  <div class="g2">
+    <div class="card"><div class="eyebrow" style="margin-bottom:8px">Leave Management</div><div class="h4" style="margin-bottom:8px">Structured leave pipeline</div><p class="body" style="font-size:13px;margin-bottom:12px">A three-stage approval flow (Submitted → Reviewing → Approved) visualised as a horizontal progress indicator. Staff can see exactly where their request sits without chasing supervisors. The "Remind manager" CTA sends an automated nudge after 48 hours of inactivity.</p><div class="tag-row"><span class="tag teal">Leave balance</span><span class="tag">Approval timeline</span><span class="tag">Remind manager</span></div></div>
+    <div class="card"><div class="eyebrow" style="margin-bottom:8px">Activity Feed</div><div class="h4" style="margin-bottom:8px">Chronological audit trail</div><p class="body" style="font-size:13px;margin-bottom:12px">Recent Activity module surfaces the four most relevant events — shift swap approvals, timesheet submissions, training deadlines, and on-call assignments — each with a relative timestamp for rapid triage.</p><div class="tag-row"><span class="tag">Shift swaps</span><span class="tag">Timesheets</span><span class="tag">Training alerts</span></div></div>
+    <div class="card"><div class="eyebrow" style="margin-bottom:8px">Roster Builder</div><div class="h4" style="margin-bottom:8px">Supervisor's command centre</div><p class="body" style="font-size:13px;margin-bottom:12px">Weekly grid view with drag-and-drop assignment, automated conflict highlighting, and minimum coverage validation. Gaps are flagged in amber before publish.</p><div class="tag-row"><span class="tag">Weekly grid</span><span class="tag teal">Conflict detection</span><span class="tag">Coverage alerts</span></div></div>
+    <div class="card"><div class="eyebrow" style="margin-bottom:8px">Reports & Analytics</div><div class="h4" style="margin-bottom:8px">Workforce intelligence</div><p class="body" style="font-size:13px;margin-bottom:12px">HR managers access real-time coverage dashboards, overtime summaries, leave utilisation reports, and exportable attendance logs. All data is live — no manual assembly required.</p><div class="tag-row"><span class="tag">Overtime tracking</span><span class="tag">Exportable</span><span class="tag teal">Live data</span></div></div>
+  </div>
+</div>
+</section>
+
+<section id="challenges" style="background:#0d1218">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Challenges & Solutions</span></div>
+  <h2 class="h1" style="margin-bottom:32px">Where the hard problems lived</h2>
+  <div class="challenge-pair">
+    <div class="ch-card ch-problem"><div class="eyebrow" style="color:#e55a4e;margin-bottom:8px">Challenge 01</div><div class="h4" style="margin-bottom:8px">Role-based complexity vs. simplicity</div><p class="body" style="font-size:13px">Four user roles needed access to the same underlying data but with radically different actions, views, and permissions. How do you build one navigation system that doesn't overwhelm any single user type?</p></div>
+    <div class="ch-card ch-solution"><div class="eyebrow" style="color:#1ABFAA;margin-bottom:8px">Solution</div><div class="h4" style="margin-bottom:8px">Progressive disclosure by role</div><p class="body" style="font-size:13px">Bottom navigation is identical across all roles, but each tab renders a role-appropriate view. A nurse's Calendar shows only their schedule. A supervisor's Calendar is a full department grid. The mental model is preserved; content depth scales with permission level.</p></div>
+  </div>
+  <div class="challenge-pair">
+    <div class="ch-card ch-problem"><div class="eyebrow" style="color:#e55a4e;margin-bottom:8px">Challenge 02</div><div class="h4" style="margin-bottom:8px">Making shift types instantly scannable</div><p class="body" style="font-size:13px">The calendar needed to convey five shift types at very small sizes in a single glance. Text labels inside cells were too small; icons were too ambiguous.</p></div>
+    <div class="ch-card ch-solution"><div class="eyebrow" style="color:#1ABFAA;margin-bottom:8px">Solution</div><div class="h4" style="margin-bottom:8px">Semantic color system with underline bars</div><p class="body" style="font-size:13px">A persistent 3px underline bar per date cell uses the shift-type color, consistent across every screen in the product. Users build unconscious pattern recognition. A persistent legend ensures onboarding without a manual.</p></div>
+  </div>
+  <div class="challenge-pair">
+    <div class="ch-card ch-problem"><div class="eyebrow" style="color:#e55a4e;margin-bottom:8px">Challenge 03</div><div class="h4" style="margin-bottom:8px">Adoption by non-digital-native users</div><p class="body" style="font-size:13px">~30% of nursing staff were over 50 and had never used a mobile scheduling app. Any design requiring tutorials would be abandoned immediately under time pressure.</p></div>
+    <div class="ch-card ch-solution"><div class="eyebrow" style="color:#1ABFAA;margin-bottom:8px">Solution</div><div class="h4" style="margin-bottom:8px">Zero-instruction design principle</div><p class="body" style="font-size:13px">Every key action visible on the primary screen — no hidden menus, no long-press gestures. Button labels use plain clinical language. Usability tests with older staff showed task completion without any instruction within 90 seconds of first use.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="results">
+<div class="page">
+  <div class="section-label"><span class="eyebrow">Results & Outcomes</span></div>
+  <h2 class="h1" style="margin-bottom:14px">What the design delivered</h2>
+  <p class="body-lg" style="margin-bottom:36px">Outcomes measured through usability testing (Maze), stakeholder feedback sessions, and comparative analysis against the pre-existing Excel-based process.</p>
+  <div class="g4" style="margin-bottom:36px">
+    <div class="stat-card"><div class="number">87%</div><div class="stat-label">Task success rate in usability testing</div></div>
+    <div class="stat-card"><div class="number">↓68%</div><div class="stat-label">Reduction in roster prep time</div></div>
+    <div class="stat-card"><div class="number">4.6/5</div><div class="stat-label">Average SUS score</div></div>
+    <div class="stat-card"><div class="number">60+</div><div class="stat-label">Screens delivered</div></div>
+  </div>
+  <div class="card">
+    <div class="h3" style="margin-bottom:20px">Outcome breakdown</div>
+    <div class="result-item"><div class="result-icon">⏱️</div><div><div class="h4" style="margin-bottom:5px">Scheduling time reduction</div><p class="body">Supervisor simulation testing showed the roster builder reduced time-to-publish by an estimated 68% vs. Excel baseline. Conflict detection alone eliminated an average of 6 manual corrections per weekly roster.</p></div></div>
+    <div class="result-item"><div class="result-icon">✅</div><div><div class="h4" style="margin-bottom:5px">Leave request clarity</div><p class="body">The three-stage approval visualisation reduced follow-up inquiries in testing scenarios. 100% of participants understood the status of their leave request without explanation.</p></div></div>
+    <div class="result-item"><div class="result-icon">📱</div><div><div class="h4" style="margin-bottom:5px">Mobile adoption readiness</div><p class="body">Zero-instruction design validated: participants aged 45–62 completed core tasks without a tutorial in under 2 minutes. 91% of this cohort rated the system "easy" or "very easy."</p></div></div>
+    <div class="result-item"><div class="result-icon">🏗️</div><div><div class="h4" style="margin-bottom:5px">Developer handoff quality</div><p class="body">Delivered 60+ annotated screens, a complete component library with 80+ components and variants, responsive breakpoint documentation, and interaction state specifications.</p></div></div>
+  </div>
+</div>
+</section>
+
+<section id="conclusion">
+<div class="page">
+  <div style="max-width:640px;margin:0 auto;text-align:center">
+    <div class="eyebrow" style="margin-bottom:20px">Conclusion</div>
+    <h2 class="h1" style="margin-bottom:20px">Healthcare workforce management, redesigned from the ground up</h2>
+    <p class="body-lg" style="margin-bottom:28px">The Roster Management System demonstrates what happens when enterprise software is designed with the same intentionality applied to consumer apps. The clinical environment demands clarity, speed, and reliability — not just functionality.</p>
+    <p class="body-lg" style="margin-bottom:40px">Every decision — from the shift colour system to the bottom navigation architecture — was made in service of the people who can't afford to waste time figuring out software.</p>
+    <div style="border-top:1px solid #1e2a38;padding-top:32px">
+      <div class="eyebrow" style="margin-bottom:14px">Tools used</div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+        <span class="tag teal">Figma</span><span class="tag">FigJam</span><span class="tag">Maze</span><span class="tag">Notion</span><span class="tag">Miro</span><span class="tag">Zeplin</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div style="background:#070b10;padding:28px 0;text-align:center;border-top:1px solid #111820">
+  <div class="eyebrow" style="margin-bottom:6px">Roster Management System · UI/UX Case Study</div>
+  <p class="caption">Healthcare Workforce Management · Full project available on Behance</p>
+</div>
+
+<script>
+function goTo(id,e){
+  var el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-link').forEach(function(l){l.classList.remove('active')});
+  if(e&&e.target)e.target.classList.add('active');
+}
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.08});
+document.querySelectorAll('.card,.stat-card,.persona-card,.annotation-card,.ch-card,.journey-stage,.reveal').forEach(function(el){
+  el.classList.add('reveal');
+  obs.observe(el);
+});
+</script>
