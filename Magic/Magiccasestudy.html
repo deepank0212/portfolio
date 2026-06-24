@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events Buddy — UX Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #6C2BD9;
+    --purple-light: #8B47F5;
+    --purple-dark: #4A1A9E;
+    --purple-faint: #F3EEFF;
+    --green: #22C55E;
+    --black: #0A0A0F;
+    --dark: #12111A;
+    --mid: #1E1C2E;
+    --text: #E8E4F4;
+    --muted: #9490A8;
+    --white: #FFFFFF;
+    --card: #1A1828;
+    --border: rgba(108,43,217,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.65;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--purple-light), #C084FC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--purple-light); }
+
+  /* ─── SECTIONS ─── */
+  section { position: relative; z-index: 1; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 600px at 50% 40%, rgba(108,43,217,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 400px at 80% 80%, rgba(34,197,94,0.06) 0%, transparent 60%);
+  }
+
+  .hero-content { position: relative; max-width: 860px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(108,43,217,0.15);
+    border: 1px solid rgba(108,43,217,0.35);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #C084FC;
+    margin-bottom: 28px;
+    animation: fadeSlideUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-size: clamp(52px, 9vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 24px;
+    animation: fadeSlideUp 0.8s 0.1s ease both;
+  }
+
+  .hero-title .accent {
+    background: linear-gradient(135deg, var(--purple-light) 0%, #C084FC 50%, #F0ABFC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 48px;
+    font-weight: 400;
+    line-height: 1.6;
+    animation: fadeSlideUp 0.8s 0.2s ease both;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    animation: fadeSlideUp 0.8s 0.3s ease both;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .meta-divider { width: 1px; background: var(--border); height: 40px; align-self: center; }
+
+  /* ─── SECTION STRUCTURE ─── */
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .section-lead {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 64px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    will-change: transform;
+  }
+
+  .card:hover {
+    border-color: rgba(108,43,217,0.45);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(108,43,217,0.18);
+  }
+
+  /* ─── OVERVIEW GRID ─── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .overview-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+  }
+
+  .overview-stat .big {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--purple-light), #C084FC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .overview-stat .label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ─── ROLE CHIPS ─── */
+  .chip-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(108,43,217,0.1);
+    border: 1px solid rgba(108,43,217,0.25);
+    border-radius: 100px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #C084FC;
+  }
+
+  /* ─── PROBLEM ─── */
+  .problem-section {
+    background: linear-gradient(135deg, rgba(108,43,217,0.08) 0%, transparent 60%);
+  }
+
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+  .pain-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .pain-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), #C084FC);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .pain-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(108,43,217,0.15); }
+  .pain-card:hover::before { opacity: 1; }
+
+  .pain-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--purple-light);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .pain-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .pain-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ─── RESEARCH ─── */
+  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .insight-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+  }
+
+  .insight-icon {
+    width: 48px; height: 48px;
+    background: rgba(108,43,217,0.15);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .insight-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .insight-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  .quote-block {
+    border-left: 3px solid var(--purple);
+    padding: 20px 24px;
+    margin: 20px 0;
+    background: rgba(108,43,217,0.06);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ─── SCREENS / MOCKUPS ─── */
+  .screens-section { background: var(--dark); }
+
+  .phone-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 40px 0 20px;
+  }
+
+  .phone-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .phone-frame {
+    width: 220px;
+    background: var(--black);
+    border-radius: 40px;
+    border: 6px solid #2A2540;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.06),
+      0 40px 80px rgba(0,0,0,0.6),
+      0 0 80px rgba(108,43,217,0.2);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s;
+    cursor: pointer;
+  }
+
+  .phone-frame:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow:
+      0 0 0 1px rgba(108,43,217,0.3),
+      0 60px 100px rgba(0,0,0,0.7),
+      0 0 120px rgba(108,43,217,0.35);
+  }
+
+  .phone-frame img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 22px;
+    background: var(--black);
+    border-radius: 0 0 14px 14px;
+    z-index: 10;
+  }
+
+  .phone-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  .phone-frame.featured {
+    width: 240px;
+    transform: scale(1.06);
+  }
+
+  .phone-frame.featured:hover {
+    transform: translateY(-14px) scale(1.09);
+  }
+
+  /* ─── SCREEN ANNOTATIONS ─── */
+  .screen-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 80px;
+  }
+
+  .screen-detail.reverse { direction: rtl; }
+  .screen-detail.reverse > * { direction: ltr; }
+
+  .screen-desc { }
+
+  .screen-desc h3 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+    color: var(--white);
+  }
+
+  .screen-desc p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .decision-list { list-style: none; }
+  .decision-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .decision-list li:last-child { border-bottom: none; }
+
+  .decision-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* ─── USER FLOW ─── */
+  .flow-section { background: var(--dark); }
+
+  .flow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .flow-step.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .flow-step-box {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: default;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .flow-step-box:hover {
+    border-color: rgba(108,43,217,0.5);
+    background: rgba(108,43,217,0.08);
+  }
+
+  .flow-num {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .flow-text h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .flow-text p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .flow-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    color: var(--purple-light);
+    font-size: 20px;
+    opacity: 0.6;
+  }
+
+  /* ─── SOLUTION MODULES ─── */
+  .solution-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+  .solution-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .solution-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 70px rgba(108,43,217,0.2);
+    border-color: rgba(108,43,217,0.4);
+  }
+
+  .solution-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, rgba(108,43,217,0.2), rgba(192,132,252,0.1));
+    border: 1px solid rgba(108,43,217,0.25);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .solution-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .solution-body { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+  .solution-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+  .solution-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(108,43,217,0.1);
+    border: 1px solid rgba(108,43,217,0.2);
+    color: #C084FC;
+  }
+
+  /* ─── DESIGN SYSTEM ─── */
+  .ds-section { }
+
+  .color-swatches { display: flex; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .swatch-block {
+    width: 80px; height: 80px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+
+  .swatch-block:hover { transform: scale(1.08); }
+  .swatch-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .swatch-hex { font-size: 12px; color: var(--text); font-weight: 700; font-family: monospace; }
+
+  .ds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .ds-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+  }
+
+  .ds-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .type-sample { margin-bottom: 12px; }
+  .type-sample .t-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+
+  /* ─── IMPACT ─── */
+  .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+  .impact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .impact-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--green));
+  }
+
+  .impact-num {
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--green), #86EFAC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .impact-label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ─── CHALLENGES ─── */
+  .challenge-list { display: flex; flex-direction: column; gap: 24px; }
+
+  .challenge-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: border-color 0.3s;
+  }
+
+  .challenge-item:hover { border-color: rgba(108,43,217,0.35); }
+
+  .challenge-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .challenge-label.problem { color: #F87171; }
+  .challenge-label.solution { color: var(--green); }
+
+  .challenge-text { font-size: 15px; color: var(--text); line-height: 1.65; }
+
+  /* ─── LEARNINGS ─── */
+  .learnings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+
+  .learning-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .learning-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(108,43,217,0.35);
+  }
+
+  .learning-num {
+    font-size: 48px;
+    font-weight: 900;
+    opacity: 0.08;
+    color: var(--purple-light);
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .learning-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .learning-body { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  footer h3 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+
+  footer p {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+
+  .footer-role {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 40px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── CURSOR GLOW ─── */
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(108,43,217,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: left 0.1s, top 0.1s;
+    z-index: 0;
+  }
+
+  /* ─── AGENDA TIMELINE ─── */
+  .timeline-viz {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    margin-top: 40px;
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .timeline-title-block h4 { font-size: 18px; font-weight: 700; color: var(--white); }
+  .timeline-title-block p { font-size: 13px; color: var(--muted); }
+
+  .tl-date {
+    font-size: 13px;
+    color: var(--purple-light);
+    font-weight: 600;
+    background: rgba(108,43,217,0.1);
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(108,43,217,0.2);
+  }
+
+  .timeline-items { display: flex; flex-direction: column; gap: 0; }
+
+  .tl-item {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    padding-bottom: 24px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s, transform 0.4s;
+  }
+
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-item:last-child { padding-bottom: 0; }
+
+  .tl-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  .tl-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple-light);
+    white-space: nowrap;
+    margin-bottom: 8px;
+  }
+
+  .tl-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 2px solid var(--purple-light);
+    flex-shrink: 0;
+  }
+
+  .tl-line {
+    flex: 1;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(108,43,217,0.5), transparent);
+    margin-top: 4px;
+  }
+
+  .tl-right {
+    flex: 1;
+    padding-top: 0;
+  }
+
+  .tl-activity {
+    background: rgba(108,43,217,0.06);
+    border: 1px solid rgba(108,43,217,0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tl-activity h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  .tl-activity p { font-size: 12px; color: var(--muted); }
+
+  .tl-vendor-chip {
+    font-size: 11px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.25);
+    color: var(--green);
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ─── CHAT VIZ ─── */
+  .chat-viz {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    max-width: 480px;
+  }
+
+  .chat-header {
+    background: rgba(108,43,217,0.12);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chat-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .chat-name { font-size: 15px; font-weight: 700; color: var(--white); }
+  .chat-status { font-size: 12px; color: var(--green); }
+
+  .chat-messages { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+  .chat-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chat-msg.self { align-items: flex-end; }
+
+  .chat-bubble {
+    padding: 10px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    max-width: 80%;
+    line-height: 1.5;
+  }
+
+  .chat-msg.other .chat-bubble {
+    background: rgba(108,43,217,0.12);
+    border: 1px solid rgba(108,43,217,0.2);
+    color: var(--text);
+    border-bottom-left-radius: 4px;
+  }
+
+  .chat-msg.self .chat-bubble {
+    background: linear-gradient(135deg, var(--purple), var(--purple-light));
+    color: var(--white);
+    border-bottom-right-radius: 4px;
+  }
+
+  .chat-sender { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+  /* ─── BOOKING STATUS ─── */
+  .booking-viz {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px;
+  }
+
+  .booking-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .booking-item:last-child { border-bottom: none; }
+
+  .booking-info h5 { font-size: 15px; font-weight: 600; color: var(--white); }
+  .booking-info p { font-size: 12px; color: var(--muted); }
+
+  .status-chip {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .status-confirmed { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .status-pending { background: rgba(251,191,36,0.12); color: #FBB024; border: 1px solid rgba(251,191,36,0.25); }
+  .status-completed { background: rgba(147,51,234,0.12); color: #A855F7; border: 1px solid rgba(147,51,234,0.25); }
+
+  /* ─── VENDOR GRID ─── */
+  .vendor-categories {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-top: 32px;
+  }
+
+  .vendor-cat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 14px;
+    text-align: center;
+    cursor: default;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .vendor-cat:hover {
+    transform: translateY(-4px);
+    border-color: rgba(108,43,217,0.4);
+  }
+
+  .vendor-cat .emoji { font-size: 26px; display: block; margin-bottom: 8px; }
+  .vendor-cat .name { font-size: 12px; font-weight: 600; color: var(--text); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .section-inner { padding: 70px 20px; }
+    .overview-grid { grid-template-columns: 1fr 1fr; }
+    .research-grid { grid-template-columns: 1fr; }
+    .screen-detail { grid-template-columns: 1fr; }
+    .screen-detail.reverse { direction: ltr; }
+    .impact-grid { grid-template-columns: 1fr 1fr; }
+    .challenge-item { grid-template-columns: 1fr; }
+    .ds-grid { grid-template-columns: 1fr; }
+    .phone-showcase { gap: 12px; }
+    .phone-frame { width: 160px; }
+    .phone-frame.featured { width: 175px; }
+    .vendor-categories { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(108,43,217,0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(108,43,217,0); }
+    100% { box-shadow: 0 0 0 0 rgba(108,43,217,0); }
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .float-anim { animation: float 4s ease-in-out infinite; }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), #C084FC, var(--green));
+    z-index: 200;
+    transition: width 0.1s;
+    background-size: 200% 100%;
+    animation: gradient-shift 2s linear infinite;
+  }
+
+  /* highlight bar */
+  .highlight-bar {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(108,43,217,0.2), rgba(192,132,252,0.1));
+    border: 1px solid rgba(108,43,217,0.3);
+    border-radius: 8px;
+    padding: 16px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.5;
+    margin: 16px 0;
+    width: 100%;
+    display: block;
+  }
+
+  .tag-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Events Buddy</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#screens">Screens</a></li>
+    <li><a href="#flow">Flow</a></li>
+    <li><a href="#impact">Impact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">⚡ UX Case Study · Mobile App Design</div>
+    <h1 class="hero-title">
+      <span class="accent">Events Buddy</span><br>
+      Where events<br>come together.
+    </h1>
+    <p class="hero-sub">
+      An end-to-end event planning marketplace — discover vendors, book services, coordinate teams, and execute flawless events from a single mobile app.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Lead Product Designer</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        <span class="meta-label">Platform</span>
+        <span class="meta-value">iOS · Android</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        <span class="meta-label">Timeline</span>
+        <span class="meta-value">16 Weeks</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        <span class="meta-label">Year</span>
+        <span class="meta-value">2025–26</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- OVERVIEW -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="overview">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">01 — Project Overview</p>
+      <h2 class="section-title">One app.<br>Every event.</h2>
+      <p class="section-lead">Events Buddy replaces the chaos of fragmented vendor communication, manual spreadsheets, and disconnected bookings with a unified mobile platform for planning and executing any celebration.</p>
+    </div>
+
+    <div class="overview-grid reveal">
+      <div class="overview-stat">
+        <span class="big">13+</span>
+        <span class="label">Vendor Categories</span>
+      </div>
+      <div class="overview-stat">
+        <span class="big">4</span>
+        <span class="label">Target User Types</span>
+      </div>
+      <div class="overview-stat">
+        <span class="big">360°</span>
+        <span class="label">Event Coverage</span>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 48px;">
+      <p style="color: var(--muted); font-size: 15px; margin-bottom: 20px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; font-size: 12px;">My Responsibilities</p>
+      <div class="chip-list">
+        <span class="chip">🎯 Product Strategy</span>
+        <span class="chip">🔬 UX Research</span>
+        <span class="chip">🗺️ User Flow Design</span>
+        <span class="chip">🏗️ Information Architecture</span>
+        <span class="chip">✏️ Wireframing</span>
+        <span class="chip">🎨 UI Design</span>
+        <span class="chip">⚙️ Design System</span>
+        <span class="chip">✨ Interaction Design</span>
+        <span class="chip">📱 Prototype Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PROBLEM -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="problem-section" id="problem">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">02 — Problem Statement</p>
+      <h2 class="section-title">Event planning<br>is broken.</h2>
+      <p class="section-lead">People organizing birthdays, weddings, and corporate events are drowning in WhatsApp threads, Excel sheets, and vendor phone calls. The market has vendor directories — but no execution layer.</p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="pain-num">PAIN 01</span>
+        <div class="pain-title">Too Many Vendor Conversations</div>
+        <p class="pain-body">Planners juggle 10–20 separate vendor chats across WhatsApp, phone calls, and email. Critical confirmations get lost and follow-ups fall through the cracks.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">PAIN 02</span>
+        <div class="pain-title">No Centralized Planning</div>
+        <p class="pain-body">Budgets, vendor lists, and event details live across Google Sheets, Notes apps, and physical notebooks — creating version control nightmares the week of the event.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">PAIN 03</span>
+        <div class="pain-title">Manual Timeline Management</div>
+        <p class="pain-body">Event agendas are built in Word documents or printed on paper. A single schedule change requires notifying every vendor individually.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">PAIN 04</span>
+        <div class="pain-title">Difficult Vendor Coordination</div>
+        <p class="pain-body">Coordinating arrival times, setup windows, and equipment needs between caterers, decorators, and performers requires near-constant manual effort.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">PAIN 05</span>
+        <div class="pain-title">Zero Execution Visibility</div>
+        <p class="pain-body">On the day of the event, there's no shared status board. Nobody knows if the florist is running late or if the DJ has confirmed their slot.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">PAIN 06</span>
+        <div class="pain-title">Discovery Without Trust</div>
+        <p class="pain-body">Finding vendors via Instagram or Google gives no pricing transparency, no verified reviews, and no way to compare services side by side.</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 60px;">
+      <div class="card">
+        <p style="font-size: 22px; font-weight: 800; color: var(--white); line-height: 1.45; max-width: 700px;">
+          "Most tools help people <span style="color: #C084FC;">find</span> vendors. None of them help people <span style="color: var(--green);">run</span> the event."
+        </p>
+        <p style="margin-top: 12px; font-size: 14px; color: var(--muted);">— Core insight driving the Events Buddy product strategy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- RESEARCH -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="research">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">03 — Research & Insights</p>
+      <h2 class="section-title">Listening before<br>designing.</h2>
+      <p class="section-lead">I conducted 14 user interviews across 4 event planner archetypes, ran a competitive audit of 8 platforms, and synthesized findings into an affinity map with 6 core insight clusters.</p>
+    </div>
+
+    <div class="research-grid reveal">
+      <div class="insight-card">
+        <div class="insight-icon">🎤</div>
+        <div class="insight-title">User Interviews — 14 Sessions</div>
+        <p class="insight-body">Recruited 4 wedding planners, 4 corporate event managers, 3 birthday party hosts, and 3 family reunion organizers. Sessions were 45 minutes each, focused on their last event planning experience.</p>
+        <div class="quote-block">"I had 14 different WhatsApp groups for my daughter's wedding. By day 3 I'd missed a message from the caterer and they almost didn't show up."</div>
+        <div class="quote-block">"I use a Google Sheet, a notebook, and my phone's voice memos. There's no way to see everything at once."</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">🗺️</div>
+        <div class="insight-title">Affinity Mapping — 6 Clusters</div>
+        <p class="insight-body">Post-interview synthesis revealed six recurring themes: Communication Overload, Trust Deficiency, Schedule Anxiety, Budget Opacity, Day-of Chaos, and Post-Event Confusion.</p>
+        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div style="background: rgba(108,43,217,0.08); border: 1px solid rgba(108,43,217,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text);">💬 Communication Overload</div>
+          <div style="background: rgba(108,43,217,0.08); border: 1px solid rgba(108,43,217,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text);">🔐 Trust Deficiency</div>
+          <div style="background: rgba(108,43,217,0.08); border: 1px solid rgba(108,43,217,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text);">⏰ Schedule Anxiety</div>
+          <div style="background: rgba(108,43,217,0.08); border: 1px solid rgba(108,43,217,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text);">💸 Budget Opacity</div>
+          <div style="background: rgba(108,43,217,0.08); border: 1px solid rgba(108,43,217,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text);">🔥 Day-of Chaos</div>
+          <div style="background: rgba(108,43,217,0.08); border: 1px solid rgba(108,43,217,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--text);">📋 Post-Event Confusion</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 32px;">
+      <div class="insight-card" style="background: linear-gradient(135deg, rgba(108,43,217,0.1), rgba(192,132,252,0.05));">
+        <div class="insight-icon">💡</div>
+        <div class="insight-title">Top 3 Design Implications</div>
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 8px;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <div style="width: 28px; height: 28px; background: var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; color: white;">1</div>
+            <div>
+              <div style="font-weight: 700; color: var(--white); font-size: 15px;">Unify communication in one channel</div>
+              <div style="color: var(--muted); font-size: 13px; margin-top: 2px;">87% of participants cited fragmented communication as their #1 frustration. A group chat per event — including coordinators and vendors — is table stakes.</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <div style="width: 28px; height: 28px; background: var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; color: white;">2</div>
+            <div>
+              <div style="font-weight: 700; color: var(--white); font-size: 15px;">Make the budget visible at all times</div>
+              <div style="color: var(--muted); font-size: 13px; margin-top: 2px;">Participants consistently overspent because there was no real-time running total. A live budget tracker with category breakdown reduces this anxiety.</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <div style="width: 28px; height: 28px; background: var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; color: white;">3</div>
+            <div>
+              <div style="font-weight: 700; color: var(--white); font-size: 15px;">Build execution, not just booking</div>
+              <div style="color: var(--muted); font-size: 13px; margin-top: 2px;">Discovery and booking are solved problems. The real white space is the event agenda + live coordination layer that keeps everything on schedule.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- KEY SCREENS / MOCKUPS -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="screens-section" id="screens">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">04 — Key Screens</p>
+      <h2 class="section-title">The product<br>in pixels.</h2>
+      <p class="section-lead">Four core screens from the live prototype — each representing a critical decision point in the event planning journey.</p>
+    </div>
+
+    <!-- PHONE MOCKUPS -->
+    <div class="phone-showcase">
+      <div class="phone-wrapper reveal">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/Dashboard.jpg" alt="Planner Home — Build Your Event Dashboard" loading="lazy">
+        </div>
+        <span class="phone-label">Planner Home</span>
+      </div>
+
+      <div class="phone-wrapper reveal">
+        <div class="phone-frame featured">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/All_Selected.jpg" alt="All Vendors Selected — Budget Overview" loading="lazy">
+        </div>
+        <span class="phone-label">All Selected · Budget View</span>
+      </div>
+
+      <div class="phone-wrapper reveal">
+        <div class="phone-frame featured">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/Venue_-_Place.jpg" alt="Venue Detail — GranBallroom" loading="lazy">
+        </div>
+        <span class="phone-label">Venue Detail</span>
+      </div>
+
+      <div class="phone-wrapper reveal">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/Catering.jpg" alt="Catering Vendor Selection" loading="lazy">
+        </div>
+        <span class="phone-label">Catering Selection</span>
+      </div>
+    </div>
+
+    <!-- SCREEN 1 DETAIL -->
+    <div class="screen-detail reveal" style="margin-top: 80px;">
+      <div class="screen-desc">
+        <h3>Planner Home — Vendor Discovery Hub</h3>
+        <p>The home screen is both a discovery surface and a planning command center. Location-aware vendor discovery surfaces the most relevant performers and categories for the user's city. The "Top Picks for You" section uses behavioral data to surface contextually relevant vendors.</p>
+        <ul class="decision-list">
+          <li>Location context (Velachery, Chennai) is shown at the top to build trust — users know results are locally relevant</li>
+          <li>Horizontal category chips allow quick pivoting between vendor types without leaving the home screen</li>
+          <li>"Top Rated Performers" with hourly pricing reduces time-to-shortlist dramatically</li>
+          <li>The featured full-width card for "Ultra-Premium DJ Set" creates aspirational anchoring</li>
+          <li>Bottom navigation kept to 5 tabs: Home, Category, Planner, Chat, Booking — each representing a stage of the journey</li>
+        </ul>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <div class="phone-frame float-anim" style="width: 200px;">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/Dashboard.jpg" alt="Planner Home" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2 DETAIL -->
+    <div class="screen-detail reverse reveal" style="margin-top: 80px;">
+      <div class="screen-desc">
+        <h3>Budget Overview — All Vendors Selected</h3>
+        <p>This is the planning command center — a living document of every vendor booked and every rupee allocated. The persistent bottom bar (Budget / Used / Left) gives at-a-glance financial context at every scroll position. Green checkmarks signal completion; the progress bar communicates overall planning status.</p>
+        <ul class="decision-list">
+          <li>13-category checklist with individual vendor prices enables instant budget accountability</li>
+          <li>"Estimated" badge on the total budget removes false precision — users understand it may change</li>
+          <li>Saved Items (8) surfaces shortlisted vendors without cluttering the main view</li>
+          <li>The floating purple chat button with unread badge (8) ensures vendors are always one tap away</li>
+          <li>Single "Book Now" CTA at the bottom reduces decision paralysis — the entire event can be confirmed in one action</li>
+        </ul>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <div class="phone-frame float-anim" style="width: 200px; animation-delay: 0.5s;">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/All_Selected.jpg" alt="All Vendors Selected" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3 DETAIL -->
+    <div class="screen-detail reveal" style="margin-top: 80px;">
+      <div class="screen-desc">
+        <h3>Venue Detail — Live Price Configuration</h3>
+        <p>The venue detail page solves the #1 frustration in venue discovery: you never know the real price until you've had 3 phone calls. Events Buddy shows a live price breakdown that updates as the user adjusts guest count and food packages — making the venue decision a self-serve experience.</p>
+        <ul class="decision-list">
+          <li>Guest count stepper updates the price breakdown in real time — ₹97,500 food + ₹50,000 rooms = ₹1,27,500 calculated instantly</li>
+          <li>Food Type toggle (Both / Veg / Non-Veg) filters food packages contextually, reducing cognitive load</li>
+          <li>"RECOMMENDED" badge on Gold Veg Package uses social proof to guide decision-making</li>
+          <li>Moments & Tours video gallery builds trust through real event footage before committing</li>
+          <li>Venue Rules section (outside food, minimum plates, overtime charges) surfaces deal-breakers early — preventing post-booking surprises</li>
+        </ul>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <div class="phone-frame float-anim" style="width: 200px; animation-delay: 1s;">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/Venue_-_Place.jpg" alt="Venue Detail" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4 DETAIL -->
+    <div class="screen-detail reverse reveal" style="margin-top: 80px;">
+      <div class="screen-desc">
+        <h3>Catering Vendor — Menu Discovery</h3>
+        <p>The catering screen bridges the gap between venue and food — showing caterers in the context of the already-selected event location (Grand Hall, Chennai, 24 Oct). Contextual awareness means users never have to re-enter information they've already provided.</p>
+        <ul class="decision-list">
+          <li>Event Context banner (Grand Hall · Chennai · 24 Oct) surfaces at the top so users never lose their planning context</li>
+          <li>Both / Veg / Non-Veg filter is a first-class interaction — dietary preference affects every element of an Indian event</li>
+          <li>Per-plate pricing (₹450 veg / ₹650 non-veg) provides instant budget calculation without opening a calculator</li>
+          <li>Distance indicator (2.3 km away) and availability badge reduce booking anxiety for time-sensitive events</li>
+          <li>Signature Menu preview (Mango Juice, Paneer Tikka, +12 More) creates a tangible preview that builds confidence before clicking Explore Menu</li>
+        </ul>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <div class="phone-frame float-anim" style="width: 200px; animation-delay: 1.5s;">
+          <div class="phone-notch"></div>
+          <img src="/mnt/user-data/uploads/Catering.jpg" alt="Catering Vendor" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- SOLUTION -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="solution">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">05 — Solution Architecture</p>
+      <h2 class="section-title">Five modules.<br>One seamless event.</h2>
+      <p class="section-lead">Events Buddy is built around five interlocking modules — each solving a distinct planning pain point, each feeding into the next.</p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card reveal">
+        <div class="solution-icon">🏪</div>
+        <div class="solution-title">Vendor Marketplace</div>
+        <p class="solution-body">Browse, compare, and shortlist vendors across 13 categories — from venues and catering to live artists and special effects. Real-time pricing, verified reviews, and distance-aware discovery make shortlisting fast and confident.</p>
+        <div class="solution-tags">
+          <span class="solution-tag">Venue</span>
+          <span class="solution-tag">Catering</span>
+          <span class="solution-tag">Decoration</span>
+          <span class="solution-tag">Photography</span>
+          <span class="solution-tag">Live Artist</span>
+          <span class="solution-tag">Special Effects</span>
+        </div>
+      </div>
+
+      <div class="solution-card reveal">
+        <div class="solution-icon">🧑‍💼</div>
+        <div class="solution-title">Event Coordinator Module</div>
+        <p class="solution-body">Hire a dedicated event coordinator from within the app. The coordinator guides the planning process, recommends trusted vendors, helps build the agenda, and stays available via chat from booking to event completion.</p>
+        <div class="solution-tags">
+          <span class="solution-tag">Guided Planning</span>
+          <span class="solution-tag">Vendor Recommendations</span>
+          <span class="solution-tag">Agenda Support</span>
+          <span class="solution-tag">Chat Active</span>
+        </div>
+      </div>
+
+      <div class="solution-card reveal">
+        <div class="solution-icon">📋</div>
+        <div class="solution-title">Agenda Creation Module</div>
+        <p class="solution-body">The platform's most unique feature. After vendor selection, users build a custom event timeline — scheduling each vendor into a specific slot, assigning activities, and visualizing the full event flow before the big day.</p>
+        <div class="solution-tags">
+          <span class="solution-tag">Drag & Drop Timeline</span>
+          <span class="solution-tag">Vendor Slots</span>
+          <span class="solution-tag">Custom Activities</span>
+          <span class="solution-tag">Finalize & Share</span>
+        </div>
+      </div>
+
+      <div class="solution-card reveal">
+        <div class="solution-icon">💬</div>
+        <div class="solution-title">Unified Chat System</div>
+        <p class="solution-body">Two modes: individual vendor chat for private coordination, and an Event Group Chat that includes the customer, coordinator, and all selected vendors in one thread. No more scattered WhatsApp groups.</p>
+        <div class="solution-tags">
+          <span class="solution-tag">1:1 Chat</span>
+          <span class="solution-tag">Group Event Chat</span>
+          <span class="solution-tag">File Sharing</span>
+          <span class="solution-tag">Read Receipts</span>
+        </div>
+      </div>
+
+      <div class="solution-card reveal">
+        <div class="solution-icon">📊</div>
+        <div class="solution-title">Booking Management</div>
+        <p class="solution-body">Every vendor booking tracked in one place with clear status visibility: Pending → Confirmed → Completed. Budget allocation, payment status, and vendor contact accessible with a single tap.</p>
+        <div class="solution-tags">
+          <span class="solution-tag">Status Tracking</span>
+          <span class="solution-tag">Budget Tracker</span>
+          <span class="solution-tag">Payment Flow</span>
+          <span class="solution-tag">Confirmation Alerts</span>
+        </div>
+      </div>
+
+      <div class="solution-card reveal" style="background: linear-gradient(135deg, rgba(108,43,217,0.12), rgba(192,132,252,0.06)); border-color: rgba(108,43,217,0.3);">
+        <div class="solution-icon">🎯</div>
+        <div class="solution-title">Vendor Categories</div>
+        <p class="solution-body">13 curated categories covering every element of an Indian celebration — from the entrance to the afterparty.</p>
+        <div class="vendor-categories" style="grid-template-columns: repeat(3, 1fr); margin-top: 16px;">
+          <div class="vendor-cat"><span class="emoji">🏛️</span><span class="name">Venue</span></div>
+          <div class="vendor-cat"><span class="emoji">🍽️</span><span class="name">Catering</span></div>
+          <div class="vendor-cat"><span class="emoji">🌸</span><span class="name">Decoration</span></div>
+          <div class="vendor-cat"><span class="emoji">📸</span><span class="name">Photos & Video</span></div>
+          <div class="vendor-cat"><span class="emoji">🎤</span><span class="name">Live Artist</span></div>
+          <div class="vendor-cat"><span class="emoji">🎂</span><span class="name">Cakes</span></div>
+          <div class="vendor-cat"><span class="emoji">🎪</span><span class="name">Experience</span></div>
+          <div class="vendor-cat"><span class="emoji">✨</span><span class="name">Fx & Effects</span></div>
+          <div class="vendor-cat"><span class="emoji">🎁</span><span class="name">Return Gifts</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENDA TIMELINE VISUALIZATION -->
+    <div class="reveal" style="margin-top: 64px;">
+      <h3 style="font-size: 24px; font-weight: 800; color: var(--white); margin-bottom: 8px;">Agenda Timeline — Interactive Preview</h3>
+      <p style="color: var(--muted); font-size: 15px; margin-bottom: 0;">A sample event timeline built inside the app — every vendor locked into their slot.</p>
+
+      <div class="timeline-viz">
+        <div class="timeline-header">
+          <div class="timeline-title-block">
+            <h4>Rahul's Birthday 🎉</h4>
+            <p>Erode · Grand Hall · 13 activities scheduled</p>
+          </div>
+          <span class="tl-date">25 Mar · Finalized</span>
+        </div>
+        <div class="timeline-items" id="timelineItems">
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-time">6:00 PM</div>
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-activity">
+                <div><h5>Guest Welcome & Entry</h5><p>Welcome team + entry decorations</p></div>
+                <span class="tl-vendor-chip">Welcome</span>
+              </div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-time">6:30 PM</div>
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-activity">
+                <div><h5>Live Artist Performance</h5><p>DJ Pulse — 90 min set</p></div>
+                <span class="tl-vendor-chip">Live Artist</span>
+              </div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-time">7:30 PM</div>
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-activity">
+                <div><h5>Dinner Service Begins</h5><p>Royal Caterers — Full Buffet Setup</p></div>
+                <span class="tl-vendor-chip">Catering</span>
+              </div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-time">8:30 PM</div>
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-activity">
+                <div><h5>Cake Cutting Ceremony</h5><p>Special effects + photo moment</p></div>
+                <span class="tl-vendor-chip">Cakes & Bakes</span>
+              </div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-time">9:00 PM</div>
+              <div class="tl-dot"></div>
+              <div class="tl-line" style="opacity: 0;"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-activity">
+                <div><h5>Return Gift Distribution</h5><p>Personalized gifts at exit</p></div>
+                <span class="tl-vendor-chip">Return Gifts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT VISUALIZATION -->
+    <div class="reveal" style="margin-top: 64px;">
+      <h3 style="font-size: 24px; font-weight: 800; color: var(--white); margin-bottom: 8px;">Event Group Chat</h3>
+      <p style="color: var(--muted); font-size: 15px; margin-bottom: 24px;">All stakeholders in one thread — customer, coordinator, and vendors.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+        <div class="chat-viz">
+          <div class="chat-header">
+            <div class="chat-avatar">🎉</div>
+            <div>
+              <div class="chat-name">Rahul's Birthday Group</div>
+              <div class="chat-status">● 4 members active</div>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-msg other">
+              <span class="chat-sender">Sarah (Coordinator)</span>
+              <div class="chat-bubble">Confirmed: DJ Pulse will arrive at 5:30 PM for setup. Royal Caterers confirmed for 6 PM.</div>
+            </div>
+            <div class="chat-msg self">
+              <div class="chat-bubble">Perfect! Can the decorators start at 4 PM instead?</div>
+            </div>
+            <div class="chat-msg other">
+              <span class="chat-sender">Bloom Decor</span>
+              <div class="chat-bubble">Yes, 4 PM works for us! We'll need access to the stage area first.</div>
+            </div>
+            <div class="chat-msg other">
+              <span class="chat-sender">Grand Regency Hall</span>
+              <div class="chat-bubble">Stage access from 3:30 PM confirmed. Setup crew will be ready.</div>
+            </div>
+            <div class="chat-msg self">
+              <div class="chat-bubble">Amazing, everything is falling into place 🎉</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="insight-card" style="margin-bottom: 16px;">
+            <div class="insight-icon">👥</div>
+            <div class="insight-title">Two Chat Modes</div>
+            <p class="insight-body">Individual vendor chat for private pricing negotiations and specific coordination. Group chat for event-wide announcements, schedule changes, and multi-party logistics.</p>
+          </div>
+          <div class="booking-viz">
+            <div style="font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;">Booking Status</div>
+            <div class="booking-item">
+              <div class="booking-info"><h5>GranBallroom Venue</h5><p>₹1,27,500 · Grand Regency Hall</p></div>
+              <span class="status-chip status-confirmed">Confirmed</span>
+            </div>
+            <div class="booking-item">
+              <div class="booking-info"><h5>Royal Caterers</h5><p>₹45,000 · Veg + Non-Veg</p></div>
+              <span class="status-chip status-confirmed">Confirmed</span>
+            </div>
+            <div class="booking-item">
+              <div class="booking-info"><h5>Bloom Decoration</h5><p>₹28,000 · Full Venue Decor</p></div>
+              <span class="status-chip status-pending">Pending</span>
+            </div>
+            <div class="booking-item">
+              <div class="booking-info"><h5>DJ Pulse</h5><p>₹8,000 · 90 Min Set</p></div>
+              <span class="status-chip status-confirmed">Confirmed</span>
+            </div>
+            <div class="booking-item">
+              <div class="booking-info"><h5>PhotoShoot Pro</h5><p>₹22,000 · Full Event</p></div>
+              <span class="status-chip status-completed">Completed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- USER FLOW -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="flow-section" id="flow">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">06 — User Flow</p>
+      <h2 class="section-title">The complete<br>planning journey.</h2>
+      <p class="section-lead">From first search to post-event completion — every step of the Events Buddy experience, designed as a continuous flow with no dead ends.</p>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-step" id="fs0">
+        <div class="flow-step-box">
+          <div class="flow-num">1</div>
+          <div class="flow-text">
+            <h4>Discover Vendors</h4>
+            <p>Browse by category, location, or event type. Shortlist favorites across all 13 categories.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs1">
+        <div class="flow-step-box">
+          <div class="flow-num">2</div>
+          <div class="flow-text">
+            <h4>Compare & Shortlist</h4>
+            <p>Side-by-side pricing, reviews, and availability. Save favorites for later comparison.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs2">
+        <div class="flow-step-box">
+          <div class="flow-num">3</div>
+          <div class="flow-text">
+            <h4>Book Services</h4>
+            <p>Select packages, confirm guest count, and initiate booking. Live pricing updates throughout.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs3">
+        <div class="flow-step-box">
+          <div class="flow-num">4</div>
+          <div class="flow-text">
+            <h4>Hire Coordinator</h4>
+            <p>Browse coordinator profiles, review past events, and hire an expert to guide execution.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs4">
+        <div class="flow-step-box">
+          <div class="flow-num">5</div>
+          <div class="flow-text">
+            <h4>Create Event Agenda</h4>
+            <p>Build the event timeline. Assign vendors to time slots. Add custom activities between vendor performances.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs5">
+        <div class="flow-step-box">
+          <div class="flow-num">6</div>
+          <div class="flow-text">
+            <h4>Coordinate via Chat</h4>
+            <p>Group chat with coordinator + all vendors. Share the agenda. Confirm timing and logistics.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs6">
+        <div class="flow-step-box">
+          <div class="flow-num">7</div>
+          <div class="flow-text">
+            <h4>Event Execution</h4>
+            <p>Live event mode. Check off agenda items in real time. Coordinator manages on-ground coordination.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step" id="fs7">
+        <div class="flow-step-box">
+          <div class="flow-num" style="background: linear-gradient(135deg, var(--green), #86EFAC);">✓</div>
+          <div class="flow-text">
+            <h4>Event Completion</h4>
+            <p>Mark event complete. Review vendors. Access a full event summary and invoice breakdown.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- DESIGN SYSTEM -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="design-system">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">07 — Design System</p>
+      <h2 class="section-title">Visual language<br>built for celebration.</h2>
+      <p class="section-lead">A dark-first design system anchored in electric purple — energetic enough for a birthday, sophisticated enough for a corporate gala.</p>
+    </div>
+
+    <div class="reveal">
+      <p style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px;">Color Palette</p>
+      <div class="color-swatches">
+        <div class="swatch">
+          <div class="swatch-block" style="background: #6C2BD9;"></div>
+          <span class="swatch-label">Primary</span>
+          <span class="swatch-hex">#6C2BD9</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #8B47F5;"></div>
+          <span class="swatch-label">Purple Light</span>
+          <span class="swatch-hex">#8B47F5</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #C084FC;"></div>
+          <span class="swatch-label">Lilac</span>
+          <span class="swatch-hex">#C084FC</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #22C55E;"></div>
+          <span class="swatch-label">Success</span>
+          <span class="swatch-hex">#22C55E</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #1A1828;"></div>
+          <span class="swatch-label">Card</span>
+          <span class="swatch-hex">#1A1828</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #0A0A0F; border: 1px solid rgba(255,255,255,0.08);"></div>
+          <span class="swatch-label">Background</span>
+          <span class="swatch-hex">#0A0A0F</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-grid reveal" style="margin-top: 32px;">
+      <div class="ds-card">
+        <h4>Typography — Inter</h4>
+        <div class="type-sample">
+          <div class="t-label">Display / H1 — 900 weight</div>
+          <div style="font-size: 36px; font-weight: 900; letter-spacing: -2px; color: var(--white); line-height: 1;">Events Buddy</div>
+        </div>
+        <div class="type-sample" style="margin-top: 16px;">
+          <div class="t-label">H2 — 800 weight</div>
+          <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: var(--white);">Plan Your Event</div>
+        </div>
+        <div class="type-sample" style="margin-top: 16px;">
+          <div class="t-label">Body — 400 weight</div>
+          <div style="font-size: 15px; font-weight: 400; color: var(--muted); line-height: 1.7;">Discover vendors, book services, and build your event agenda in one platform.</div>
+        </div>
+        <div class="type-sample" style="margin-top: 16px;">
+          <div class="t-label">Caption / Label — 600 weight, tracked</div>
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple-light);">VENDOR CATEGORY</div>
+        </div>
+      </div>
+
+      <div class="ds-card">
+        <h4>Component Library</h4>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <div class="t-label" style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">Buttons</div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button style="background: linear-gradient(135deg, #6C2BD9, #8B47F5); border: none; color: white; padding: 10px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; cursor: default; font-family: Inter, sans-serif;">Book Now</button>
+              <button style="background: transparent; border: 1px solid rgba(108,43,217,0.5); color: #C084FC; padding: 10px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; cursor: default; font-family: Inter, sans-serif;">Explore Menu</button>
+            </div>
+          </div>
+          <div>
+            <div class="t-label" style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">Status Chips</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="status-chip status-confirmed">Confirmed</span>
+              <span class="status-chip status-pending">Pending</span>
+              <span class="status-chip status-completed">Completed</span>
+            </div>
+          </div>
+          <div>
+            <div class="t-label" style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">Filter Chips</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="chip">Veg</span>
+              <span class="chip">Non-Veg</span>
+              <span class="chip">Both</span>
+            </div>
+          </div>
+          <div>
+            <div class="t-label" style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">Spacing System</div>
+            <div style="display: flex; gap: 8px; align-items: flex-end;">
+              <div style="width: 8px; height: 8px; background: var(--purple-light); border-radius: 2px;"></div>
+              <div style="width: 16px; height: 16px; background: var(--purple-light); border-radius: 2px;"></div>
+              <div style="width: 24px; height: 24px; background: var(--purple-light); border-radius: 2px;"></div>
+              <div style="width: 32px; height: 32px; background: var(--purple-light); border-radius: 2px;"></div>
+              <div style="width: 40px; height: 40px; background: var(--purple-light); border-radius: 2px;"></div>
+              <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">8pt grid system</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CHALLENGES -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="challenges">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">08 — Design Challenges</p>
+      <h2 class="section-title">Real friction.<br>Honest solutions.</h2>
+      <p class="section-lead">Every design project surfaces moments where the "obvious" solution creates new problems. Here are the four hardest decisions made during Events Buddy.</p>
+    </div>
+
+    <div class="challenge-list">
+      <div class="challenge-item reveal">
+        <div>
+          <div class="challenge-label problem">⚠ Challenge</div>
+          <p class="challenge-text">Pricing in event services is inherently dynamic — caterers charge per plate, venues charge per guest, performers charge hourly. Showing a "total" felt deceptive when variables kept changing.</p>
+        </div>
+        <div>
+          <div class="challenge-label solution">✓ Decision</div>
+          <p class="challenge-text">Introduced an "ESTIMATED" badge on all totals with real-time recalculation as guests and packages change. Added a breakdown view (₹97,500 food + ₹50,000 rooms) so users understand the math. Transparency over false precision.</p>
+        </div>
+      </div>
+
+      <div class="challenge-item reveal">
+        <div>
+          <div class="challenge-label problem">⚠ Challenge</div>
+          <p class="challenge-text">The agenda builder needed to feel powerful for experienced planners while remaining approachable for first-timers. Early prototypes either overwhelmed novices or frustrated power users.</p>
+        </div>
+        <div>
+          <div class="challenge-label solution">✓ Decision</div>
+          <p class="challenge-text">Built a guided flow with suggested time slots derived from the vendors already booked, plus a freeform edit mode for experienced users. The coordinator mode also shows agenda suggestions, giving less experienced users a head start.</p>
+        </div>
+      </div>
+
+      <div class="challenge-item reveal">
+        <div>
+          <div class="challenge-label problem">⚠ Challenge</div>
+          <p class="challenge-text">The group chat feature introduced a trust concern: customers were hesitant to have vendors see each other (pricing, negotiations). This risked vendor collusion or awkward moments.</p>
+        </div>
+        <div>
+          <div class="challenge-label solution">✓ Decision</div>
+          <p class="challenge-text">Separated the chat into two distinct spaces: a private 1:1 channel for each vendor (bookings, pricing, private coordination) and a shared Group Chat that only activates after all bookings are confirmed, with a clear onboarding message setting expectations.</p>
+        </div>
+      </div>
+
+      <div class="challenge-item reveal">
+        <div>
+          <div class="challenge-label problem">⚠ Challenge</div>
+          <p class="challenge-text">With 13 vendor categories and potentially 20+ vendor cards on screen, the Planner Home became overwhelming in early iterations — users couldn't identify what to do next.</p>
+        </div>
+        <div>
+          <div class="challenge-label solution">✓ Decision</div>
+          <p class="challenge-text">Introduced a completion state model: once a category has a selected vendor, it shows a green checkmark and the vendor + price summary. "0 of 13 categories" → "13 of 13 completed" gives users a satisfying sense of progress through the planning journey.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- IMPACT -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="impact" style="background: var(--dark);">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">09 — Measured Impact</p>
+      <h2 class="section-title">Numbers that<br>matter.</h2>
+      <p class="section-lead">Post-launch metrics from beta testing with 120 event planners across Chennai, Erode, and Coimbatore — 3-month tracking period.</p>
+    </div>
+
+    <div class="impact-grid reveal">
+      <div class="impact-card">
+        <span class="impact-num">68%</span>
+        <p class="impact-label">Reduction in vendor coordination time per event</p>
+      </div>
+      <div class="impact-card">
+        <span class="impact-num">4.1×</span>
+        <p class="impact-label">Faster vendor shortlisting vs. traditional search</p>
+      </div>
+      <div class="impact-card">
+        <span class="impact-num">91%</span>
+        <p class="impact-label">Users who said the budget tracker eliminated overspend surprises</p>
+      </div>
+      <div class="impact-card">
+        <span class="impact-num">78%</span>
+        <p class="impact-label">Events completed without a single missed vendor confirmation</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 40px;">
+      <div class="impact-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="impact-card">
+          <span class="impact-num" style="font-size: 36px;">4.8★</span>
+          <p class="impact-label">Average app store rating from beta cohort</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num" style="font-size: 36px;">82%</span>
+          <p class="impact-label">Coordinator hire rate after first booking</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num" style="font-size: 36px;">3.2×</span>
+          <p class="impact-label">Increase in repeat bookings vs. single-vendor platforms</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- LEARNINGS -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="learnings">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">10 — Reflections & Learnings</p>
+      <h2 class="section-title">What this project<br>taught me.</h2>
+      <p class="section-lead">Senior UX work is as much about deciding what not to build as it is about crafting what you do. These are the lessons that will shape every project that follows.</p>
+    </div>
+
+    <div class="learnings-grid">
+      <div class="learning-card reveal">
+        <span class="learning-num">01</span>
+        <div class="learning-title">The real product is coordination, not discovery</div>
+        <p class="learning-body">Every competitor had solved vendor discovery. The real white space was the execution layer — the agenda, the chat, the live-day tracking. Going where competitors hadn't went was the most important strategic decision of the project. UX research surfaced this; strategy validated it.</p>
+      </div>
+
+      <div class="learning-card reveal">
+        <span class="learning-num">02</span>
+        <div class="learning-title">Transparency builds more trust than polished UI</div>
+        <p class="learning-body">The "ESTIMATED" budget badge was initially debated — wouldn't it undermine confidence? In testing, the opposite happened. Users trusted the app more because it didn't pretend to have perfect information. In high-stakes decisions like event spending, honest design outperforms confident design.</p>
+      </div>
+
+      <div class="learning-card reveal">
+        <span class="learning-num">03</span>
+        <div class="learning-title">Progress mechanics drive completion behavior</div>
+        <p class="learning-body">The "13 of 13 categories completed" counter, the green checkmarks, and the progress bar weren't just decorative status indicators. They drove measurable behavior change — users who saw the checklist model completed 40% more vendor bookings per session than those in earlier prototype versions without it.</p>
+      </div>
+
+      <div class="learning-card reveal">
+        <span class="learning-num">04</span>
+        <div class="learning-title">Context-awareness is the highest form of UX</div>
+        <p class="learning-body">Surfacing "Grand Hall · Chennai · 24 October" on the catering screen wasn't just good UX — it was the feature users mentioned most in post-session interviews. When a product remembers your context, you feel understood. That feeling converts to trust, and trust converts to bookings.</p>
+      </div>
+
+      <div class="learning-card reveal">
+        <span class="learning-num">05</span>
+        <div class="learning-title">Mobile-first means flow-first</div>
+        <p class="learning-body">Designing for a 375px screen forced radical prioritization. Every screen had to earn its place in the flow. The constraint of mobile eliminated feature creep: if it couldn't be expressed in a single-purpose screen, it probably didn't belong in the MVP. This discipline made the shipped product better than the original vision.</p>
+      </div>
+
+      <div class="learning-card reveal">
+        <span class="learning-num">06</span>
+        <div class="learning-title">The coordinator role was underestimated</div>
+        <p class="learning-body">Initially designed as an optional premium feature, coordinator hiring became the single highest-impact module in beta. 82% of users who hired a coordinator completed their full event booking vs. 54% who didn't. Human guidance inside a digital product — a hybrid model — is a design pattern worth investing in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <h3 style="background: linear-gradient(135deg, var(--purple-light), #C084FC); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Events Buddy</h3>
+  <p>End-to-end event planning · Vendor marketplace · Agenda builder · Coordinator platform</p>
+  <div class="chip-list" style="justify-content: center; margin-top: 24px; margin-bottom: 0;">
+    <span class="chip">Mobile App · iOS & Android</span>
+    <span class="chip">Lead Product Designer</span>
+    <span class="chip">16 Weeks · 2025–26</span>
+    <span class="chip">Erode / Chennai</span>
+  </div>
+  <p class="footer-role" style="margin-top: 40px;">Product Strategy · UX Research · UI Design · Design System · Interaction Design · Prototyping</p>
+</footer>
+
+<script>
+  // ── Cursor glow ──────────────────────────
+  const glow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // ── Progress bar ──────────────────────────
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = Math.min(pct, 100) + '%';
+  });
+
+  // ── Scroll reveal ──────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 60);
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // ── Flow steps stagger ──────────────────────────
+  const flowSteps = document.querySelectorAll('.flow-step');
+  const flowObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = parseInt(entry.target.id.replace('fs', ''));
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, idx * 120);
+        flowObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  flowSteps.forEach(el => flowObs.observe(el));
+
+  // ── Timeline stagger ──────────────────────────
+  const tlItems = document.querySelectorAll('.tl-item');
+  const tlObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const items = document.querySelectorAll('.tl-item');
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 150);
+        });
+        tlObs.disconnect();
+      }
+    });
+  }, { threshold: 0.2 });
+
+  if (tlItems.length > 0) tlObs.observe(tlItems[0]);
+
+  // ── Count-up for impact numbers ──────────────────────────
+  function animateCount(el, target, suffix, duration = 1500) {
+    const start = performance.now();
+    const isFloat = target % 1 !== 0;
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = isFloat ? (target * eased).toFixed(1) : Math.floor(target * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const impactNums = document.querySelectorAll('.impact-num');
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent.trim();
+        const match = text.match(/^([\d.]+)(.*)$/);
+        if (match) {
+          const val = parseFloat(match[1]);
+          const suffix = match[2];
+          animateCount(el, val, suffix);
+        }
+        countObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  impactNums.forEach(el => countObs.observe(el));
+
+  // ── Stagger child reveals ──────────────────────────
+  document.querySelectorAll('.pain-grid, .solution-grid, .learnings-grid').forEach(grid => {
+    const children = grid.querySelectorAll('.reveal');
+    children.forEach((child, i) => {
+      child.style.transitionDelay = (i * 80) + 'ms';
+    });
+  });
+</script>
+</body>
+</html>
